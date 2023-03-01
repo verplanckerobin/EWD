@@ -17,6 +17,10 @@ public class MAINoef5 {
 
 		TypedQuery<Campus> queryC = entityManager.createNamedQuery("Campus.findAll", Campus.class);
 		campusList = queryC.getResultList();
+		
+		// Beter namend queries gebruiken rechtstreeks in de klasse zelf
+//		TypedQuery<Campus> queryC2 = entityManager.createQuery("SELECT c FROM Campus c", Campus.class);
+//		campusList = queryC2.getResultList();
 
 		TypedQuery<Docent> queryD = entityManager.createNamedQuery("Docent.findAll", Docent.class);
 		docentList = queryD.getResultList();

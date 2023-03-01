@@ -16,10 +16,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
+// Beter hier de named queries definen dan rechtstreeks in de main, dan gebeurt de controle al voor het programma start
 @NamedQueries({
     @NamedQuery(
            name = "Campus.findAll", 
-           query = "SELECT c FROM Campus c")
+           query = "SELECT c FROM Campus c"),
+    @NamedQuery(
+    		name = "Campus.findByName", 
+    		query = "SELECT c FROM Campus c WHERE c.campusNaam = :naam")
 })
 public class Campus implements Serializable {
 	
