@@ -7,12 +7,20 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(
+           name = "Campus.findAll", 
+           query = "SELECT c FROM Campus c")
+})
 public class Campus implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,6 +31,7 @@ public class Campus implements Serializable {
 	   
     private String campusNaam;
 
+    //@ManyToMany(fetch=FetchType.EAGER, mappedBy = "campussen")
     @ManyToMany(mappedBy = "campussen")
     private final  Set<Docent> docenten = new HashSet<>();
 
@@ -62,7 +71,7 @@ public class Campus implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(campusID);
+		return Objects.hash(campusNaam);
 	}
 
 	@Override
@@ -74,6 +83,24 @@ public class Campus implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Campus other = (Campus) obj;
-		return campusID == other.campusID;
+		return Objects.equals(campusNaam, other.campusNaam);
 	}
+
+    // NOOIT een PK kiezen in equals! 
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(campusID);
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Campus other = (Campus) obj;
+//		return campusID == other.campusID;
+//	}
 }

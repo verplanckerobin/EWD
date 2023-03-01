@@ -9,14 +9,20 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Docent.findAll", query = "SELECT d FROM Docent d")
+})
 @Table(name = "docenten")
 public class Docent implements Serializable{
 
@@ -34,6 +40,7 @@ public class Docent implements Serializable{
     private String familienaam;
     private BigDecimal wedde;
     
+    //@ManyToMany(fetch=FetchType.EAGER)
     @ManyToMany
     private Set<Campus> campussen = new HashSet<>();
     
