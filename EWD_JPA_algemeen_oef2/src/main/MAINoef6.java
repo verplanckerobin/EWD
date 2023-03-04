@@ -3,7 +3,6 @@ package main;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import domein.Campus;
 import domein.Docent;
