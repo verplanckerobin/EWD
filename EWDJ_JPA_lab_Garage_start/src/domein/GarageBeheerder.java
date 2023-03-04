@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -58,8 +57,8 @@ public class GarageBeheerder {
     public void addOnderhoudsbeurt(String nrplaat, LocalDate begin, LocalDate einde) {
         Vervoermiddel v = vervoerMap.get(nrplaat);
         Onderhoudsbeurt o = new Onderhoudsbeurt(begin, einde, v);
-        em.getTransaction().begin();
         v.addOnderhoudsbeurt(o);
+        em.getTransaction().begin();
         em.persist(o);
         em.getTransaction().commit();
     }

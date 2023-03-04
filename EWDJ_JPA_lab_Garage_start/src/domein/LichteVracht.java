@@ -7,14 +7,14 @@ public class LichteVracht extends Vervoermiddel {
     
 	private static final long serialVersionUID = 1L;
 	private double massa;
+	
+	protected LichteVracht() {
+    	
+    }
 
     public LichteVracht(double massa, String nummerplaat) {
         super(nummerplaat);
         this.massa = massa;
-    }
-    
-    protected LichteVracht() {
-    	
     }
 
     public double getMassa() {

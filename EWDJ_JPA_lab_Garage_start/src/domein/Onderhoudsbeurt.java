@@ -9,8 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name = "Onderhoudsbeurt.opDatum", 
+			query = "SELECT o FROM Onderhoudsbeurt o"
+					+ "WHERE :datum BETWEEN o.begindatum AND o.einddatum")
+})
 public class Onderhoudsbeurt implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,15 +33,15 @@ public class Onderhoudsbeurt implements Serializable {
 
     @ManyToOne
     private Vervoermiddel vervoermiddel;
+    
+    protected Onderhoudsbeurt() {
+    	
+    }
 
     public Onderhoudsbeurt(LocalDate begindatum, LocalDate einddatum, Vervoermiddel vervoermiddel) {
         this.begindatum = begindatum;
         this.einddatum = einddatum;
         this.vervoermiddel = vervoermiddel;
-    }
-    
-    protected Onderhoudsbeurt() {
-    	
     }
 
     public LocalDate getBegindatum() {

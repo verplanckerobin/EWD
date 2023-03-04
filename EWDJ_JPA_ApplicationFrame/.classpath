@@ -15,5 +15,9 @@
 	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/JPA/org.eclipse.persistence.jpa.modelgen_2.7.10.v20211216-fe64cd39c3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/JPA/org.eclipse.persistence.jpars.source_2.7.10.v20211216-fe64cd39c3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/JPA/org.eclipse.persistence.jpars_2.7.10.v20211216-fe64cd39c3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jars Mockito/byte-buddy-1.12.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jars Mockito/mockito-core-4.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jars Mockito/mockito-junit-jupiter-4.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jars Mockito/objenesis-3.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
