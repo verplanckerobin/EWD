@@ -4,12 +4,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JPAUtil {
-	private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("school");
+    private final static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("school");
 
-	public static EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
-	}
+    public static EntityManagerFactory getEntityManagerFactory() {
+	return entityManagerFactory;
+    }
 
-	private JPAUtil() {
-	}
+    private JPAUtil() {
+    }
 }

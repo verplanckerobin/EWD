@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Winkel implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+    private static final long serialVersionUID = 1L;
+
     @Id
     private String naam;
     @OneToMany
@@ -23,41 +23,42 @@ public class Winkel implements Serializable {
     }
 
     public Winkel(String naam) {
-        this.naam = naam;
+	this.naam = naam;
     }
 
     public String getNaam() {
-        return naam;
+	return naam;
     }
-    public void addBier(Bier bier){
-        bierSet.add(bier);
+
+    public void addBier(Bier bier) {
+	bierSet.add(bier);
     }
-    
-    public void removeBier(Bier bier){
-        bierSet.remove(bier);
+
+    public void removeBier(Bier bier) {
+	bierSet.remove(bier);
     }
 
     public Set<Bier> getBierSet() {
-        return Collections.unmodifiableSet(bierSet);
+	return Collections.unmodifiableSet(bierSet);
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 43 * hash + Objects.hashCode(this.naam);
-        return hash;
+	int hash = 5;
+	hash = 43 * hash + Objects.hashCode(this.naam);
+	return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Winkel other = (Winkel) obj;
-        return Objects.equals(this.naam, other.naam);
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final Winkel other = (Winkel) obj;
+	return Objects.equals(this.naam, other.naam);
     }
-    
+
 }

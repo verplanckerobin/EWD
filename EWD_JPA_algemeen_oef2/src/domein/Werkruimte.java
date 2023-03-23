@@ -8,61 +8,61 @@ import javax.persistence.Id;
 @Entity
 public class Werkruimte implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String lokaalcode;
-	
-	private String naam;
-	private int aantalStoelen;
-	private int aantalComputers;
+    @Id
+    private String lokaalcode;
 
-	public Werkruimte(String lokaalcode, String naam, int aantalStoelen, int aantalComputers) {
-		setLokaalcode(lokaalcode);
-		setNaam(naam);
-		setAantalStoelen(aantalStoelen);
-		setAantalComputers(aantalComputers);
-	}
-	
-	protected Werkruimte() {
-		//nodig voor JPA-ORM tool (default constructor)
-	}
+    private String naam;
+    private int aantalStoelen;
+    private int aantalComputers;
 
-	public String getLokaalcode() {
-		return this.lokaalcode;
-	}
+    public Werkruimte(String lokaalcode, String naam, int aantalStoelen, int aantalComputers) {
+	setLokaalcode(lokaalcode);
+	setNaam(naam);
+	setAantalStoelen(aantalStoelen);
+	setAantalComputers(aantalComputers);
+    }
 
-	private void setLokaalcode(String lokaalcode) {
-		this.lokaalcode = lokaalcode;
-	}
+    protected Werkruimte() {
+	// nodig voor JPA-ORM tool (default constructor)
+    }
 
-	public String getNaam() {
-		return this.naam;
-	}
+    public String getLokaalcode() {
+	return this.lokaalcode;
+    }
 
-	public void setNaam(String naam) {
-		this.naam = naam;
-	}
+    private void setLokaalcode(String lokaalcode) {
+	this.lokaalcode = lokaalcode;
+    }
 
-	public int getAantalStoelen() {
-		return this.aantalStoelen;
-	}
+    public String getNaam() {
+	return this.naam;
+    }
 
-	public void setAantalStoelen(int aantalStoelen) {
-		this.aantalStoelen = aantalStoelen;
-	}
+    public void setNaam(String naam) {
+	this.naam = naam;
+    }
 
-	public int getAantalComputers() {
-		return this.aantalComputers;
-	}
+    public int getAantalStoelen() {
+	return this.aantalStoelen;
+    }
 
-	public void setAantalComputers(int aantalComputers) {
-		this.aantalComputers = aantalComputers;
-	}
+    public void setAantalStoelen(int aantalStoelen) {
+	this.aantalStoelen = aantalStoelen;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("%s %s %d %d", lokaalcode, naam, aantalStoelen, aantalComputers);
-	}
+    public int getAantalComputers() {
+	return this.aantalComputers;
+    }
+
+    public void setAantalComputers(int aantalComputers) {
+	this.aantalComputers = aantalComputers;
+    }
+
+    @Override
+    public String toString() {
+	return String.format("%s %s %d %d", lokaalcode, naam, aantalStoelen, aantalComputers);
+    }
 
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.BeerExpertBean;
+import domain.BeerProperty;
 
 /**
  * Servlet implementation class BeerSelectServlet
@@ -21,28 +24,23 @@ public class BeerSelectServlet extends HttpServlet {
 
     private BeerExpertBean bean = new BeerExpertBean();
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public BeerSelectServlet() {
 	super();
-	// TODO Auto-generated constructor stub
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+	super.init(config);
+	ServletContext application = getServletContext();
+	application.setAttribute("beerColors", new BeerProperty().getColors());
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	// TODO Auto-generated method stub
-	response.getWriter().append("Served at: ").append(request.getContextPath());
+	RequestDispatcher view = request.getRequestDispatcher("beerChoice.jsp");
+	view.forward(request, response);
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	String color = request.getParameter("color");
