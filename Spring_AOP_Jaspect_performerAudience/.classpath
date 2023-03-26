@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jarsAOP_2023/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jarsAOP_2023/aspectjrt-1.9.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/jarsAOP_2023/aspectjweaver-1.9.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/jakarta.servlet-api-6.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/javax.servlet-api-4.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-aop-6.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-beans-6.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-context-6.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-core-6.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-expression-6.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-test-6.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/verpl/Documents/Spring/spring jars/6.0.4/spring-web-6.0.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
