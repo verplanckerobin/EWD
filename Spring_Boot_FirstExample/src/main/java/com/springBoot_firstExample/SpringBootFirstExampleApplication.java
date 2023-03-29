@@ -3,15 +3,22 @@ package com.springBoot_firstExample;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import domain.HelloService;
 import domain.HelloServiceImpl;
 
 @SpringBootApplication
-public class SpringBootFirstExampleApplication {
+public class SpringBootFirstExampleApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
 	SpringApplication.run(SpringBootFirstExampleApplication.class, args);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+	registry.addRedirectViewController("/", "/hello");
     }
 
     @Bean
