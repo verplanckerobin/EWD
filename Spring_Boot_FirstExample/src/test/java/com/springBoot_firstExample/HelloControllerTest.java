@@ -8,10 +8,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(HelloController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class HelloControllerTest {
 
     @Autowired
@@ -27,9 +29,9 @@ public class HelloControllerTest {
     @Test
     public void testHelloPost() throws Exception {
 
-	mockMvc.perform(post("/hello").param("value", "test"))
-		// OR
-		// mockMvc.perform(post("/hello").flashAttr("name", new Name("test")))
+	// mockMvc.perform(post("/hello").param("value", "test"))
+	// OR
+	mockMvc.perform(post("/hello").flashAttr("name", new Name("test")))
 
 		.andExpect(status().isOk()).andExpect(view().name("helloView"))
 		.andExpect(model().attributeExists("helloMessage"))

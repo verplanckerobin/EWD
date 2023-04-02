@@ -1,20 +1,16 @@
 package com.springBoot_firstExample;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-//@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Name {
 
     private String value;
 
-//    public String getValue() {
-//	return value;
-//    }
-//
-//    public void setValue(String value) {
-//	this.value = value;
-//    }
 }
