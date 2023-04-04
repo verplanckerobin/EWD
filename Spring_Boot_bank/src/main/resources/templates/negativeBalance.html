@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<img th:src="@{/img/Club.gif}" />
+	<p th:text="|Watch out, ${customer.firstname}, we know where you live|"></p>
+	<p th:text="|Pay us the ${customer.balanceNoSign} euro!|"></p>
+</body>
+</html>

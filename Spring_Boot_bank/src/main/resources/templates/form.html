@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<fieldset>
+		<legend>Bank Account Balance</legend>
+		<form th:action="@{/bank}" th:object="${bankCustomer}" method="post">
+			<label>Customer ID:</label>
+			<input type="text" th:field="*{id}" placeholder="Id" /> 
+			<button type="submit">Show Balance</button>
+
+	</form>
+	</fieldset>
+</body>
+</html>
