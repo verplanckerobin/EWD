@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<h1>BOEK DETAIL</h1>
+	<table>
+		<tr>
+			<td>Naam</td>
+			<td th:text="${boek.naam}"></td>
+		</tr>
+		<tr>
+			<td>ISBN Nummer</td>
+			<td th:text="${boek.isbnNummer}"></td>
+		</tr>
+		<tr>
+			<td>Aantal sterren</td>
+			<td th:text="${boek.aantalSterren}"></td>
+		</tr>
+		<tr>
+			<td>Aankoopprijs</td>
+			<td th:text="${boek.aankoopprijs}"></td>
+		</tr>
+		<!-- TODO: locaties en auteurs -->
+	</table>
+</body>
+</html>

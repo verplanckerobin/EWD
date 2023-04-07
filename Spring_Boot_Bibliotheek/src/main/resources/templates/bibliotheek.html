@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous">
+</head>
+<body>
+	<h1>THIS IS THE HOME PAGE</h1>
+	<h2 th:text="|Hello ${username}|"></h2>
+	<h2 th:text="${userListRoles}"></h2>
+	
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" /> 
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	</form>
+	
+	<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+		<a class="btn btn-warning" th:href="|/bibliotheek/voegBoekToe|">Voeg boek toe</a>
+	</th:block>
+	
+	<table>
+		<tr>
+			<th>Index</th>
+			<th>Naam boek</th>
+			<th>Auteurs</th>
+		</tr>
+		
+		<th:block th:each="boek,iter: ${boekList}">
+		<tr>
+			<td th:text="${iter.index}"></td>
+			<td>
+				<a th:href="|/bibliotheek/boek/${boek.id}|" th:text="${boek.naam}"></a>
+			</td>
+			<!-- Auteurs TODO  -->
+		</tr>
+	</th:block>
+	</table>
+</body>
+</html>
