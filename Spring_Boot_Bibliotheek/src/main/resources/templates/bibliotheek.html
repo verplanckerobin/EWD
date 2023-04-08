@@ -20,7 +20,7 @@
 	</form>
 	
 	<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-		<a class="btn btn-warning" th:href="|/bibliotheek/voegBoekToe|">Voeg boek toe</a>
+		<a class="btn btn-warning" th:href="@{/voegBoekToe}">Voeg boek toe</a>
 	</th:block>
 	
 	<table>

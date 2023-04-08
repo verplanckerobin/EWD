@@ -7,15 +7,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@NoArgsConstructor()
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = { "id", "naam", "aankoopprijs", "aantalSterren", "auteurs", "locaties" })
 @ToString(exclude = "id")
 public class Boek implements Serializable {
@@ -26,9 +30,15 @@ public class Boek implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String naam;
 
-    private int isbnNummer, aankoopprijs, aantalSterren;
+    private int isbnNummer;
+
+    @NotNull
+    private int aankoopprijs;
+
+    private int aantalSterren;
 
     private List<Auteur> auteurs;
 
