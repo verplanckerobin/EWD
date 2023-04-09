@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import domain.Auteur;
 import domain.Boek;
+import domain.Locatie;
 import repository.AuteurRepository;
 import repository.BoekRepository;
+import repository.LocatieRepository;
 
 @Controller
 public class BibliotheekController {
@@ -27,6 +29,9 @@ public class BibliotheekController {
 
     @Autowired
     private AuteurRepository auteurRepo;
+
+    @Autowired
+    private LocatieRepository locatieRepo;
 
     @GetMapping("bibliotheek")
     public String getBibliotheek(Model model, Authentication authentication) {
@@ -53,6 +58,9 @@ public class BibliotheekController {
     public String toonVoegBoekToeForm(Model model) {
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
+	model.addAttribute("locatie", new Locatie());
+	model.addAttribute("auteurList", auteurRepo.findAll());
+	model.addAttribute("locatieList", locatieRepo.findAll());
 	return "voegBoekToe";
     }
 
@@ -64,9 +72,15 @@ public class BibliotheekController {
     }
 
     @PostMapping("/voegAuteurToe/save")
-    public String voegBoekToe(@ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model) {
-	// Optional<Boek> bestaandBoek = boekRepo.findById(boek.getId());
+    public String voegAuteurToe(@ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model) {
 	auteurRepo.save(auteur);
 	return "redirect:/voegBoekToe";
     }
+
+    @PostMapping("/voegLocatieToe/save")
+    public String voegLocatieToe(@ModelAttribute("locatie") Locatie locatie, BindingResult result, Model model) {
+	locatieRepo.save(locatie);
+	return "redirect:/voegBoekToe";
+    }
+
 }

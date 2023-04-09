@@ -43,12 +43,4 @@ public class Boek implements Serializable {
     private List<Auteur> auteurs;
 
     private List<Locatie> locaties;
-
-    public Boek(String naam, List<Auteur> auteurs, int isbnNummer, int aankoopprijs, List<Locatie> locaties) {
-	this.naam = naam;
-	this.auteurs = auteurs;
-	this.isbnNummer = isbnNummer;
-	this.aankoopprijs = aankoopprijs;
-	this.locaties = locaties;
-    }
 }

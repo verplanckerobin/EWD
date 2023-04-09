@@ -9,36 +9,62 @@
 <body>
 	<h1>Voeg een boek toe</h1>
 	
+
 	<form th:action="@{/voegBoekToe/save}" th:object="${boek}" method="post">
-	    <p>
-	        <label>Boek naam:</label>
-	        <input type="text" th:field="*{naam}" placeholder="naam" size="20"/>
-	    </p>
-	    <p>
+	  	<div class="form-group">
+    		<label>Boek naam:</label>
+    		<input type="text" th:field="*{naam}" class="form-control" placeholder="naam" />
+  		</div>
+	    <div class="form-group">
 	        <label>ISBN nummer:</label>
-	        <input type="text" th:field="*{isbnNummer}" placeholder="isbn" size="20"/>
-	    </p>
-	    <p>
+	        <input type="text" th:field="*{isbnNummer}" class="form-control" placeholder="isbn" />
+	    </div>
+	    <div class="form-group">
 	        <label>Aankoopprijs:</label>
-	        <input type="text" th:field="*{aankoopprijs}" placeholder="aankoopprijs" size="20"/>
-	    </p>
-	    <div>
-	    	<p>Auteurs</p>
-	    	<form th:action="@{voegAuteurToe/save}" th:object="${auteur}" method="post">
-	    		<p>
-			        <label>Auteur naam:</label>
-			        <input type="text" th:field="*{naam}" placeholder="naam" size="20"/>
-	    		</p>
-	    		<p>
-			        <label>Auteur voornaam:</label>
-			        <input type="text" th:field="*{voornaam}" placeholder="naam" size="20"/>
-	    		</p>
-	    	</form>
+	        <input type="text" th:field="*{aankoopprijs}" class="form-control" placeholder="aankoopprijs" />
 	    </div>
-	    <div>
-	    
-	    </div>
+	    <div class="form-group">
+		    <label>Auteurs:</label>
+		    <select class="form-control" >
+				<option th:each="auteur: ${auteurList}" th:value="${auteur}" th:text="|${auteur.naam} ${auteur.voornaam}|"></option>
+		    </select>
+		</div>
+	    <div class="form-group">
+		    <label>Locaties:</label>
+		    <select class="form-control" >
+				<option th:each="locatie: ${locatieList}" th:value="${locatie}" th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></option>
+		    </select>
+		</div>
 	    <button class="btn btn-primary" type="submit">Voeg toe</button>
-    </form>
+   	</form>
+   	
+   	<form th:action="@{/voegAuteurToe/save}" th:object="${auteur}" method="post">
+   		<div class="form-group">
+    		<label>Naam auteur:</label>
+    		<input type="text" th:field="*{naam}" class="form-control" placeholder="naam" />
+  		</div>
+	    <div class="form-group">
+	        <label>Voornaam auteur:</label>
+	        <input type="text" th:field="*{voornaam}" class="form-control" placeholder="voornaam" />
+	    </div>
+	    <button class="btn btn-primary" type="submit">Voeg auteur toe</button>
+   	</form>
+   	
+   	<form th:action="@{/voegLocatieToe/save}" th:object="${locatie}" method="post">
+   		<div class="form-group">
+    		<label>Plaatscode 1:</label>
+    		<input type="text" th:field="*{plaatscode1}" class="form-control" placeholder="plaatscode 1" />
+  		</div>
+	    <div class="form-group">
+    		<label>Plaatscode 2:</label>
+    		<input type="text" th:field="*{plaatscode2}" class="form-control" placeholder="plaatscode 2" />
+  		</div>
+  		<div class="form-group">
+    		<label>Plaatsnaam:</label>
+    		<input type="text" th:field="*{plaatsnaam}" class="form-control" placeholder="plaatsnaam" />
+  		</div>
+	    <button class="btn btn-primary" type="submit">Voeg locatie toe</button>
+   	</form>
+
 </body>
 </html>
