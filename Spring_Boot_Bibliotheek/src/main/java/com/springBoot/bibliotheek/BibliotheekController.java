@@ -66,7 +66,6 @@ public class BibliotheekController {
 
     @PostMapping("/voegBoekToe/save")
     public String voegBoekToe(@ModelAttribute("boek") Boek boek, BindingResult result, Model model) {
-	// Optional<Boek> bestaandBoek = boekRepo.findById(boek.getId());
 	boekRepo.save(boek);
 	return "redirect:/bibliotheek";
     }

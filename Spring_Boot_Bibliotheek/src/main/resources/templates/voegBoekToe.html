@@ -23,17 +23,21 @@
 	        <label>Aankoopprijs:</label>
 	        <input type="text" th:field="*{aankoopprijs}" class="form-control" placeholder="aankoopprijs" />
 	    </div>
+	    
 	    <div class="form-group">
 		    <label>Auteurs:</label>
-		    <select class="form-control" >
-				<option th:each="auteur: ${auteurList}" th:value="${auteur}" th:text="|${auteur.naam} ${auteur.voornaam}|"></option>
-		    </select>
+		    <div th:each="auteur: ${auteurList}">
+		    	<input type="checkbox" th:id="${{auteur}}" th:value="${{auteur}}" th:field="*{auteurs}" />
+		    	<label th:for="${{auteur}}" th:text="|${auteur.naam} ${auteur.voornaam}|"></label>
+		    </div>
 		</div>
+		
 	    <div class="form-group">
 		    <label>Locaties:</label>
-		    <select class="form-control" >
-				<option th:each="locatie: ${locatieList}" th:value="${locatie}" th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></option>
-		    </select>
+		    <div th:each="locatie: ${locatieList}">
+		    	<input type="checkbox" th:id="${{locatie}}" th:value="${{locatie}}" th:field="*{locaties}" />
+		    	<label th:for="${{locatie}}" th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></label>
+		    </div>
 		</div>
 	    <button class="btn btn-primary" type="submit">Voeg toe</button>
    	</form>

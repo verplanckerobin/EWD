@@ -1,11 +1,13 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,4 +32,7 @@ public class Locatie implements Serializable {
 
     private int plaatscode1, plaatscode2;
     private String plaatsnaam;
+
+    @ManyToMany(mappedBy = "locaties")
+    private List<Boek> boeken;
 }
