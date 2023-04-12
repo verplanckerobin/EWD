@@ -21,7 +21,9 @@ public class SecurityConfig {
 
     @Autowired
     public void configureGobal(AuthenticationManagerBuilder auth) throws Exception {
-	auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder());
+	auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
+		.usersByUsernameQuery("select username,password,enabled from `Gebruiker` where username = ?")
+		.authoritiesByUsernameQuery("select username,authority from `Gebruiker` where username = ?");
     }
 
     @Bean
@@ -31,7 +33,7 @@ public class SecurityConfig {
 		.requestMatchers("/login**").permitAll()
 		.requestMatchers("/css/**").permitAll()
 		.requestMatchers("/403**").permitAll()
-		.requestMatchers("/**").access(new WebExpressionAuthorizationManager("hasRole('ROLE_USER')")))
+		.requestMatchers("/**").access(new WebExpressionAuthorizationManager("hasAnyRole('ROLE_USER','ROLE_ADMIN')")))
 		.formLogin(form -> form.defaultSuccessUrl("/bibliotheek", true))
 		.exceptionHandling().accessDeniedPage("/403");
 	return http.build();
