@@ -24,10 +24,25 @@
 			<td>Aankoopprijs</td>
 			<td th:text="${boek.aankoopprijs}"></td>
 		</tr>
-		<!-- TODO: locaties en auteurs -->
 	</table>
-	<form th:action="@{/boek/__${boek.id}__}" th:object="${boek}" method="post">
-		<button type="submit">Maak favoriet</button>
-	</form>
+	
+	<br>
+	<p>AUTEURS:</p>
+	<ul th:each="auteur: ${lijstAuteurs}" >
+		<li th:text="|${auteur.naam} ${auteur.voornaam}|"></li>
+	</ul>	
+	<p>LOCATIES:</p>
+	<ul th:each="locatie: ${lijstLocaties}" >
+		<li th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></li>
+	</ul>
+	
+	<br>
+	
+	<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+		<form th:action="@{/boek/__${boek.id}__}" th:object="${boek}" method="post">
+			<button type="submit">Maak favoriet</button>
+		</form>
+	</th:block>
+	
 </body>
 </html>

@@ -2,7 +2,7 @@ body {
     background-color: lightGrey; 
 }
 
-table, th, td {
+table, th, td, tr {
     border: 1px solid black;
 }
 
@@ -13,4 +13,8 @@ table {
 
 th {
     background: #ffbb00;
+}​
+
+table tr:last-child { 
+    border-bottom: none; 
 }

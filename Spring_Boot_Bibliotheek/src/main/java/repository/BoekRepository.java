@@ -9,5 +9,5 @@ import domain.Boek;
 public interface BoekRepository extends CrudRepository<Boek, Long> {
 
     @Query("SELECT b FROM Boek b WHERE b.isbnNummer = :isbnNummer")
-    Boek findByIsbnNummer(@Param("isbnNummer") int isbnNummer);
+    public Boek findByIsbnNummer(@Param("isbnNummer") int isbnNummer);
 }

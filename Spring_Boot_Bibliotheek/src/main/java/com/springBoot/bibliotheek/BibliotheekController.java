@@ -56,6 +56,8 @@ public class BibliotheekController {
 	}
 	if (boek.isPresent()) {
 	    model.addAttribute("boek", boek.get());
+	    model.addAttribute("lijstAuteurs", boek.get().getAuteurs());
+	    model.addAttribute("lijstLocaties", boek.get().getLocaties());
 	}
 	return "boekDetail";
     }
@@ -68,6 +70,11 @@ public class BibliotheekController {
 	model.addAttribute("auteurList", auteurRepo.findAll());
 	model.addAttribute("locatieList", locatieRepo.findAll());
 	return "voeg-boek-toe";
+    }
+
+    @GetMapping("/populairste-boeken")
+    public String toonMeestPopulaireBoeken(Model model) {
+	return "populairste-boeken";
     }
 
     @PostMapping("/voeg-boek-toe/save")

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -46,7 +47,7 @@ public class Boek implements Serializable {
     @JoinTable(name = "boek_auteur", joinColumns = @JoinColumn(name = "boek_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "auteur_id", referencedColumnName = "id"))
     private List<Auteur> auteurs;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "boek_locaties", joinColumns = @JoinColumn(name = "boek_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "locatie_id", referencedColumnName = "id"))
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "boek_id", referencedColumnName = "id")
     private List<Locatie> locaties;
 }
