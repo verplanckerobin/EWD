@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -50,6 +51,7 @@ public class Gebruiker implements Serializable {
 	this.password = password;
 	this.authority = authority;
 	this.isActief = isActief;
+	favorieten = new ArrayList<>();
     }
 
     public void addFavoriet(Boek boek) {

@@ -20,7 +20,7 @@
 	</form>
 	
 	<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-		<a class="btn btn-warning" th:href="@{/voegBoekToe}">Voeg boek toe</a>
+		<a class="btn btn-warning" th:href="@{/voeg-boek-toe}">Voeg boek toe</a>
 	</th:block>
 	
 	<table>
@@ -28,15 +28,16 @@
 			<th>Index</th>
 			<th>Naam boek</th>
 			<th>Auteurs</th>
+			<th>Favoriet</th>
 		</tr>
 		
 		<th:block th:each="boek,iter: ${boekList}">
 		<tr>
 			<td th:text="${iter.index}"></td>
 			<td>
-				<a th:href="|/bibliotheek/boek/${boek.id}|" th:text="${boek.naam}"></a>
+				<a th:href="|/boek/${boek.id}|" th:text="${boek.naam}"></a>
 			</td>
-			<!-- Auteurs TODO  -->
+			<td th:text="|TODO|"></td>
 		</tr>
 	</th:block>
 	</table>

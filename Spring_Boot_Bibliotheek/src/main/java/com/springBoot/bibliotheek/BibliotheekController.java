@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import domain.Auteur;
 import domain.Boek;
+import domain.Gebruiker;
 import domain.Locatie;
 import repository.AuteurRepository;
 import repository.BoekRepository;
+import repository.GebruikerRepository;
 import repository.LocatieRepository;
 
 @Controller
@@ -33,6 +36,9 @@ public class BibliotheekController {
     @Autowired
     private LocatieRepository locatieRepo;
 
+    @Autowired
+    private GebruikerRepository gebruikerRepo;
+
     @GetMapping("bibliotheek")
     public String getBibliotheek(Model model, Authentication authentication) {
 	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
@@ -42,7 +48,7 @@ public class BibliotheekController {
 	return "bibliotheek";
     }
 
-    @GetMapping("bibliotheek/boek/{id}")
+    @GetMapping("/boek/{id}")
     public String getBoek(@PathVariable Long id, Model model) {
 	Optional<Boek> boek = boekRepo.findById(id);
 	if (boek == null) {
@@ -54,32 +60,41 @@ public class BibliotheekController {
 	return "boekDetail";
     }
 
-    @GetMapping("/voegBoekToe")
+    @GetMapping("/voeg-boek-toe")
     public String toonVoegBoekToeForm(Model model) {
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
 	model.addAttribute("locatie", new Locatie());
 	model.addAttribute("auteurList", auteurRepo.findAll());
 	model.addAttribute("locatieList", locatieRepo.findAll());
-	return "voegBoekToe";
+	return "voeg-boek-toe";
     }
 
-    @PostMapping("/voegBoekToe/save")
+    @PostMapping("/voeg-boek-toe/save")
     public String voegBoekToe(@ModelAttribute("boek") Boek boek, BindingResult result, Model model) {
 	boekRepo.save(boek);
 	return "redirect:/bibliotheek";
     }
 
-    @PostMapping("/voegAuteurToe/save")
+    @PostMapping("/voeg-auteur-toe/save")
     public String voegAuteurToe(@ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model) {
 	auteurRepo.save(auteur);
-	return "redirect:/voegBoekToe";
+	return "redirect:/voeg-boek-toe";
     }
 
-    @PostMapping("/voegLocatieToe/save")
+    @PostMapping("/voeg-locatie-toe/save")
     public String voegLocatieToe(@ModelAttribute("locatie") Locatie locatie, BindingResult result, Model model) {
 	locatieRepo.save(locatie);
-	return "redirect:/voegBoekToe";
+	return "redirect:/voeg-boek-toe";
     }
 
+    @PostMapping("/boek/{id}")
+    public String saveBoekFavoriet(@PathVariable(value = "id") Long id) {
+	Gebruiker actieveGebruiker = gebruikerRepo
+		.getGebruikerByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+	Optional<Boek> boekTest = boekRepo.findById(id);
+	actieveGebruiker.addFavoriet(boekTest.get());
+	gebruikerRepo.save(actieveGebruiker);
+	return "redirect:/bibliotheek";
+    }
 }

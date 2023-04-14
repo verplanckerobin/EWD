@@ -26,5 +26,8 @@
 		</tr>
 		<!-- TODO: locaties en auteurs -->
 	</table>
+	<form th:action="@{/boek/__${boek.id}__}" th:object="${boek}" method="post">
+		<button type="submit">Maak favoriet</button>
+	</form>
 </body>
 </html>
