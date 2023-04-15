@@ -58,8 +58,12 @@ public class BibliotheekController {
 	    model.addAttribute("boek", boek.get());
 	    model.addAttribute("lijstAuteurs", boek.get().getAuteurs());
 	    model.addAttribute("lijstLocaties", boek.get().getLocaties());
+	    model.addAttribute("lijstFavorieten",
+		    gebruikerRepo
+			    .getGebruikerByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+			    .getFavorieten());
 	}
-	return "boekDetail";
+	return "boek-detail";
     }
 
     @GetMapping("/voeg-boek-toe")
@@ -74,6 +78,7 @@ public class BibliotheekController {
 
     @GetMapping("/populairste-boeken")
     public String toonMeestPopulaireBoeken(Model model) {
+	model.addAttribute("lijstPopulairsteBoeken", boekRepo.findAllByOrderByAantalSterrenDescNaamAsc());
 	return "populairste-boeken";
     }
 
@@ -99,8 +104,10 @@ public class BibliotheekController {
     public String saveBoekFavoriet(@PathVariable(value = "id") Long id) {
 	Gebruiker actieveGebruiker = gebruikerRepo
 		.getGebruikerByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-	Optional<Boek> boekTest = boekRepo.findById(id);
-	actieveGebruiker.addFavoriet(boekTest.get());
+	Optional<Boek> boek = boekRepo.findById(id);
+	actieveGebruiker.addFavoriet(boek.get());
+	boek.get().setAantalSterren(boek.get().getAantalSterren() + 1);
+	boekRepo.save(boek.get());
 	gebruikerRepo.save(actieveGebruiker);
 	return "redirect:/bibliotheek";
     }

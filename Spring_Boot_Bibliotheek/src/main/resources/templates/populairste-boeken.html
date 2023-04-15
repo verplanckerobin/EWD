@@ -8,5 +8,8 @@
 </head>
 <body>
 	<h1>Populairste boeken</h1>
+	<ul th:each="boek: ${lijstPopulairsteBoeken}" >
+		<li th:text="|${boek.naam} - ${boek.aantalSterren}|"></li>
+	</ul>	
 </body>
 </html>
