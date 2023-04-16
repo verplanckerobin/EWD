@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor()
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = { "id", "naam", "aankoopprijs", "aantalSterren", "auteurs", "locaties" })
+@EqualsAndHashCode(exclude = { "naam", "aankoopprijs", "aantalSterren", "auteurs", "locaties" })
 public class Boek implements Serializable {
 
     private static final long serialVersionUID = 1L;

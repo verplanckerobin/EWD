@@ -1,12 +1,11 @@
 package com.springBoot.bibliotheek;
 
+import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,20 +48,25 @@ public class BibliotheekController {
     }
 
     @GetMapping("/boek/{id}")
-    public String getBoek(@PathVariable Long id, Model model) {
-	Optional<Boek> boek = boekRepo.findById(id);
-	if (boek == null) {
+    public String getBoek(@PathVariable Long id, Model model, Principal principal) {
+	Boek boekFetch = boekRepo.findById(id).get();
+	Gebruiker actieveGebruiker = gebruikerRepo.getGebruikerByUsername(principal.getName());
+	Boolean heeftMaxAantalFavorieten = false;
+
+	if (boekFetch == null) {
 	    return "redirect:/bibliotheek";
 	}
-	if (boek.isPresent()) {
-	    model.addAttribute("boek", boek.get());
-	    model.addAttribute("lijstAuteurs", boek.get().getAuteurs());
-	    model.addAttribute("lijstLocaties", boek.get().getLocaties());
-	    model.addAttribute("lijstFavorieten",
-		    gebruikerRepo
-			    .getGebruikerByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
-			    .getFavorieten());
+
+	if (actieveGebruiker.getFavorieten().size() == actieveGebruiker.getMaxAantalFavorieten()) {
+	    heeftMaxAantalFavorieten = true;
 	}
+
+	model.addAttribute("boek", boekFetch);
+	model.addAttribute("lijstAuteurs", boekFetch.getAuteurs());
+	model.addAttribute("lijstLocaties", boekFetch.getLocaties());
+	model.addAttribute("isReedsFavoriet", actieveGebruiker.getFavorieten().contains(boekFetch));
+	model.addAttribute("maxAantal", heeftMaxAantalFavorieten);
+
 	return "boek-detail";
     }
 
@@ -101,14 +105,21 @@ public class BibliotheekController {
     }
 
     @PostMapping("/boek/{id}")
-    public String saveBoekFavoriet(@PathVariable(value = "id") Long id) {
-	Gebruiker actieveGebruiker = gebruikerRepo
-		.getGebruikerByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-	Optional<Boek> boek = boekRepo.findById(id);
-	actieveGebruiker.addFavoriet(boek.get());
-	boek.get().setAantalSterren(boek.get().getAantalSterren() + 1);
-	boekRepo.save(boek.get());
-	gebruikerRepo.save(actieveGebruiker);
+    public String saveBoekFavoriet(@PathVariable(value = "id") Long id, Principal principal) {
+	Gebruiker actieveGebruiker = gebruikerRepo.getGebruikerByUsername(principal.getName());
+	Boek boekFetch = boekRepo.findById(id).get();
+
+	if (actieveGebruiker.getFavorieten().contains(boekFetch)) {
+	    actieveGebruiker.removeFavoriet(boekFetch);
+	    boekFetch.setAantalSterren(boekFetch.getAantalSterren() - 1);
+	    boekRepo.save(boekFetch);
+	    gebruikerRepo.save(actieveGebruiker);
+	} else {
+	    actieveGebruiker.addFavoriet(boekFetch);
+	    boekFetch.setAantalSterren(boekFetch.getAantalSterren() + 1);
+	    boekRepo.save(boekFetch);
+	    gebruikerRepo.save(actieveGebruiker);
+	}
 	return "redirect:/bibliotheek";
     }
 }

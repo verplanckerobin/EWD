@@ -38,17 +38,10 @@
 	
 	<br>
 	
-	<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-		<div th:if="${!lijstFavorieten.contains(boek)}">
-			<form th:action="@{/boek/__${boek.id}__}" th:object="${boek}" method="post">
-				<button type="submit">Maak favoriet</button>
-			</form>
-		</div>
-		<div th:if="${lijstFavorieten.contains(boek)}">
-			<form>
-				<button type="submit">Verwijder favoriet</button>
-			</form>
-		</div>
+	<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} and ${!maxAantal}">
+		<form th:action="@{/boek/__${boek.id}__}" th:object="${boek}" method="post">
+			<button type="submit" th:text="${isReedsFavoriet} ? 'Verwijder favoriet': 'Maak favoriet'"></button>
+		</form>
 	</th:block>
 	
 </body>

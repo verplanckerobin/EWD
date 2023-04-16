@@ -16,5 +16,7 @@ public interface BoekRepository extends CrudRepository<Boek, Long> {
     @Query("SELECT count(*) FROM Gebruiker g JOIN g.favorieten f ON f.id = :id")
     public int getTotalStart(@Param("id") long id);
 
+    List<Boek> findByNaam(String naam);
+
     List<Boek> findAllByOrderByAantalSterrenDescNaamAsc();
 }

@@ -35,6 +35,7 @@ public class Gebruiker implements Serializable {
     private Long id;
 
     private String username, password;
+    private int maxAantalFavorieten;
 
     @Column(name = "enabled")
     private Boolean isActief;
@@ -46,11 +47,13 @@ public class Gebruiker implements Serializable {
     @JoinTable(name = "gebruiker_boek", joinColumns = @JoinColumn(name = "gebruiker_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "boek_id", referencedColumnName = "id"))
     List<Boek> favorieten;
 
-    public Gebruiker(String username, String password, Authorities authority, Boolean isActief) {
+    public Gebruiker(String username, String password, Authorities authority, Boolean isActief,
+	    int maxAantalFavorieten) {
 	this.username = username;
 	this.password = password;
 	this.authority = authority;
 	this.isActief = isActief;
+	this.maxAantalFavorieten = maxAantalFavorieten;
 	favorieten = new ArrayList<>();
     }
 
