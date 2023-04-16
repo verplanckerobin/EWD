@@ -18,3 +18,7 @@ th {
 table tr:last-child { 
     border-bottom: none; 
 }
+
+.error {
+	color: red;
+}

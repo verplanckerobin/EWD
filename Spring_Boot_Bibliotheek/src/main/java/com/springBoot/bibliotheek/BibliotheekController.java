@@ -18,6 +18,7 @@ import domain.Auteur;
 import domain.Boek;
 import domain.Gebruiker;
 import domain.Locatie;
+import jakarta.validation.Valid;
 import repository.AuteurRepository;
 import repository.BoekRepository;
 import repository.GebruikerRepository;
@@ -86,20 +87,30 @@ public class BibliotheekController {
 	return "populairste-boeken";
     }
 
-    @PostMapping("/voeg-boek-toe/save")
-    public String voegBoekToe(@ModelAttribute("boek") Boek boek, BindingResult result, Model model) {
+    @PostMapping("/voeg-boek-toe")
+    public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result,
+	    @ModelAttribute("auteur") Auteur auteur, @ModelAttribute("locatie") Locatie locatie) {
+	if (result.hasErrors()) {
+	    return "voeg-boek-toe";
+	}
 	boekRepo.save(boek);
 	return "redirect:/bibliotheek";
     }
 
-    @PostMapping("/voeg-auteur-toe/save")
+    @PostMapping("/voeg-auteur-toe")
     public String voegAuteurToe(@ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model) {
+	if (result.hasErrors()) {
+	    return "voeg-boek-toe";
+	}
 	auteurRepo.save(auteur);
 	return "redirect:/voeg-boek-toe";
     }
 
-    @PostMapping("/voeg-locatie-toe/save")
+    @PostMapping("/voeg-locatie-toe")
     public String voegLocatieToe(@ModelAttribute("locatie") Locatie locatie, BindingResult result, Model model) {
+	if (result.hasErrors()) {
+	    return "voeg-boek-toe";
+	}
 	locatieRepo.save(locatie);
 	return "redirect:/voeg-boek-toe";
     }

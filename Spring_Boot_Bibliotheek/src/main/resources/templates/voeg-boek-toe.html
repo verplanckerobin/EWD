@@ -10,10 +10,11 @@
 	<h1>Voeg een boek toe</h1>
 	
 
-	<form th:action="@{/voeg-boek-toe/save}" th:object="${boek}" method="post">
+	<form th:action="@{/voeg-boek-toe}" th:object="${boek}" method="post">
 	  	<div class="form-group">
     		<label>Boek naam:</label>
     		<input type="text" th:field="*{naam}" class="form-control" placeholder="naam" />
+    		<span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
   		</div>
 	    <div class="form-group">
 	        <label>ISBN nummer:</label>
@@ -42,7 +43,7 @@
 	    <button class="btn btn-primary" type="submit">Voeg toe</button>
    	</form>
    	
-   	<form th:action="@{/voeg-auteur-toe/save}" th:object="${auteur}" method="post">
+   	<form th:action="@{/voeg-auteur-toe}" th:object="${auteur}" method="post">
    		<div class="form-group">
     		<label>Naam auteur:</label>
     		<input type="text" th:field="*{naam}" class="form-control" placeholder="naam" />
@@ -54,7 +55,7 @@
 	    <button class="btn btn-primary" type="submit">Voeg auteur toe</button>
    	</form>
    	
-   	<form th:action="@{/voeg-locatie-toe/save}" th:object="${locatie}" method="post">
+   	<form th:action="@{/voeg-locatie-toe}" th:object="${locatie}" method="post">
    		<div class="form-group">
     		<label>Plaatscode 1:</label>
     		<input type="text" th:field="*{plaatscode1}" class="form-control" placeholder="plaatscode 1" />
