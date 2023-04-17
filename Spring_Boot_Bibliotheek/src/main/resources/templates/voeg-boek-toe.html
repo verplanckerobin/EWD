@@ -13,23 +13,26 @@
 	<form th:action="@{/voeg-boek-toe}" th:object="${boek}" method="post">
 	  	<div class="form-group">
     		<label>Boek naam:</label>
-    		<input type="text" th:field="*{naam}" class="form-control" placeholder="naam" />
-    		<span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
+    		<input type="text" th:field="*{boekNaam}" class="form-control" placeholder="boekNaam" />
+    		<span th:if="${#fields.hasErrors('boekNaam')}" th:errorclass="error" th:errors="*{boekNaam}"></span>
   		</div>
 	    <div class="form-group">
 	        <label>ISBN nummer:</label>
 	        <input type="text" th:field="*{isbnNummer}" class="form-control" placeholder="isbn" />
+	        <span th:if="${#fields.hasErrors('isbnNummer')}" th:errorclass="error" th:errors="*{isbnNummer}"></span>
 	    </div>
 	    <div class="form-group">
 	        <label>Aankoopprijs:</label>
 	        <input type="text" th:field="*{aankoopprijs}" class="form-control" placeholder="aankoopprijs" />
+	    	<span th:if="${#fields.hasErrors('aankoopprijs')}" th:errorclass="error" th:errors="*{aankoopprijs}"></span>
 	    </div>
 	    
 	    <div class="form-group">
 		    <label>Auteurs:</label>
 		    <div th:each="auteur: ${auteurList}">
 		    	<input type="checkbox" th:id="${{auteur}}" th:value="${{auteur}}" th:field="*{auteurs}" />
-		    	<label th:for="${{auteur}}" th:text="|${auteur.naam} ${auteur.voornaam}|"></label>
+		    	<label th:for="${{auteur}}" th:text="|${auteur.auteurNaam} ${auteur.voornaam}|"></label>
+		    	<span th:if="${#fields.hasErrors('auteurs')}" th:errorclass="error" th:errors="*{auteurs}"></span>
 		    </div>
 		</div>
 		
@@ -38,6 +41,7 @@
 		    <div th:each="locatie: ${locatieList}">
 		    	<input type="checkbox" th:id="${{locatie}}" th:value="${{locatie}}" th:field="*{locaties}" />
 		    	<label th:for="${{locatie}}" th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></label>
+		    	<span th:if="${#fields.hasErrors('locaties')}" th:errorclass="error" th:errors="*{locaties}"></span>
 		    </div>
 		</div>
 	    <button class="btn btn-primary" type="submit">Voeg toe</button>
@@ -46,11 +50,13 @@
    	<form th:action="@{/voeg-auteur-toe}" th:object="${auteur}" method="post">
    		<div class="form-group">
     		<label>Naam auteur:</label>
-    		<input type="text" th:field="*{naam}" class="form-control" placeholder="naam" />
+    		<input type="text" th:field="*{auteurNaam}" class="form-control" placeholder="auteurNaam" />
+    		<span th:if="${#fields.hasErrors('auteurNaam')}" th:errorclass="error" th:errors="*{auteurNaam}"></span>
   		</div>
 	    <div class="form-group">
 	        <label>Voornaam auteur:</label>
 	        <input type="text" th:field="*{voornaam}" class="form-control" placeholder="voornaam" />
+	        <span th:if="${#fields.hasErrors('voornaam')}" th:errorclass="error" th:errors="*{voornaam}"></span>
 	    </div>
 	    <button class="btn btn-primary" type="submit">Voeg auteur toe</button>
    	</form>
@@ -59,14 +65,17 @@
    		<div class="form-group">
     		<label>Plaatscode 1:</label>
     		<input type="text" th:field="*{plaatscode1}" class="form-control" placeholder="plaatscode 1" />
+    		<span th:if="${#fields.hasErrors('plaatscode1')}" th:errorclass="error" th:errors="*{plaatscode1}"></span>
   		</div>
 	    <div class="form-group">
     		<label>Plaatscode 2:</label>
     		<input type="text" th:field="*{plaatscode2}" class="form-control" placeholder="plaatscode 2" />
+    		<span th:if="${#fields.hasErrors('plaatscode2')}" th:errorclass="error" th:errors="*{plaatscode2}"></span>
   		</div>
   		<div class="form-group">
     		<label>Plaatsnaam:</label>
     		<input type="text" th:field="*{plaatsnaam}" class="form-control" placeholder="plaatsnaam" />
+    		<span th:if="${#fields.hasErrors('plaatsnaam')}" th:errorclass="error" th:errors="*{plaatsnaam}"></span>
   		</div>
 	    <button class="btn btn-primary" type="submit">Voeg locatie toe</button>
    	</form>

@@ -98,7 +98,8 @@ public class BibliotheekController {
     }
 
     @PostMapping("/voeg-auteur-toe")
-    public String voegAuteurToe(@ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model) {
+    public String voegAuteurToe(@Valid @ModelAttribute("auteur") Auteur auteur, BindingResult result,
+	    @ModelAttribute("boek") Boek boek, @ModelAttribute("locatie") Locatie locatie) {
 	if (result.hasErrors()) {
 	    return "voeg-boek-toe";
 	}
@@ -107,7 +108,8 @@ public class BibliotheekController {
     }
 
     @PostMapping("/voeg-locatie-toe")
-    public String voegLocatieToe(@ModelAttribute("locatie") Locatie locatie, BindingResult result, Model model) {
+    public String voegLocatieToe(@Valid @ModelAttribute("locatie") Locatie locatie, BindingResult result,
+	    @ModelAttribute("boek") Boek boek, @ModelAttribute("auteur") Auteur auteur) {
 	if (result.hasErrors()) {
 	    return "voeg-boek-toe";
 	}
