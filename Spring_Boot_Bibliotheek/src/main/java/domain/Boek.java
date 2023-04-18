@@ -52,21 +52,43 @@ public class Boek implements Serializable {
 
     @NumberFormat(style = Style.CURRENCY)
     @Range(min = 1, max = 99, message = "{validation.boekAankoopprijs.Range.message}")
-    private Integer aankoopprijs;
+    private Double aankoopprijs;
 
     private int aantalSterren;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "boek_auteur", joinColumns = @JoinColumn(name = "boek_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "auteur_id", referencedColumnName = "id"))
     @NotNull(message = "{validation.auteurs.MinSize.message}")
     @Size(min = 1, message = "{validation.auteurs.MinSize.message}")
     @Size(max = 3, message = "{validation.auteurs.MaxSize.message}")
     private List<Auteur> auteurs = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "boek_id", referencedColumnName = "id")
     @NotNull(message = "{validation.locaties.MinSize.message}")
     @Size(min = 1, message = "{validation.locaties.MinSize.message}")
     @Size(max = 3, message = "{validation.locaties.MaxSize.message}")
     private List<Locatie> locaties = new ArrayList<>();
+
+    public Boek(String naam, String isbnNummer, Double aankoopprijs) {
+	this.naam = naam;
+	this.isbnNummer = isbnNummer;
+	this.aankoopprijs = aankoopprijs;
+	this.aantalSterren = 0;
+	auteurs = new ArrayList<>();
+	locaties = new ArrayList<>();
+    }
+
+    public void voegAuteurToe(Auteur auteur) {
+	if (!auteurs.contains(auteur)) {
+	    auteurs.add(auteur);
+	}
+    }
+
+    public void voegLocatieToe(Locatie locatie) {
+	if (locatie != null) {
+	    locatie.setInGebruik(true);
+	    locaties.add(locatie);
+	}
+    }
 }

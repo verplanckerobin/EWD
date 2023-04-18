@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,7 +44,7 @@ public class Gebruiker implements Serializable {
     @Enumerated(EnumType.STRING)
     private Authorities authority;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "gebruiker_boek", joinColumns = @JoinColumn(name = "gebruiker_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "boek_id", referencedColumnName = "id"))
     List<Boek> favorieten;
 

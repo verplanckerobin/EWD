@@ -30,7 +30,7 @@ public class Locatie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean inGebruik = false;
+    private boolean inGebruik;
 
     @NotNull(message = "{validation.locatiePlaatscode.NotNull.message}")
     @Range(min = 50, max = 300, message = "{validation.locatiePlaatscode.Range.message}")
@@ -43,4 +43,12 @@ public class Locatie implements Serializable {
     @NotNull(message = "{validation.locatiePlaatsnaam.NotNull.message}")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "{validation.locatiePlaatsnaam.Pattern.message}")
     private String plaatsnaam;
+
+    public Locatie(Integer plaatscode1, Integer plaatscode2, String plaatsnaam) {
+	this.plaatscode1 = plaatscode1;
+	this.plaatscode2 = plaatscode2;
+	this.plaatsnaam = plaatsnaam;
+	inGebruik = false;
+    }
+
 }
