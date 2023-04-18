@@ -1,9 +1,13 @@
 package repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import domain.Auteur;
 
-public interface AuteurRepository extends CrudRepository<Auteur, Long> {
+@Repository
+public interface AuteurRepository extends JpaRepository<Auteur, Long> {
+
+    Auteur findByAuteurNaamAndVoornaam(String naam, String voornaam);
 
 }

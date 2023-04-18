@@ -33,11 +33,17 @@
 			</td>
 			<td >
 				<ul th:each="auteur: ${boek.getAuteurs}" >
-					<li th:text="|${auteur.naam} ${auteur.voornaam}|"></li>
+					<li th:text="|${auteur.auteurNaam} ${auteur.voornaam}|"></li>
 				</ul>
 			</td>
 		</tr>
 	</table>
+	
+	<br>
+	
+	<div th:if="${msgFav}" class="msg" th:text="${msgFav}"></div>
+	
+	<br>
 	
 	<a class="btn btn-warning" th:href="@{/populairste-boeken}">Meest populaire boeken</a>
 </body>

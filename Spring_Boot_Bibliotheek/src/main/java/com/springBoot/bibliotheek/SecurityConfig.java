@@ -33,6 +33,7 @@ public class SecurityConfig {
 		.requestMatchers("/login**").permitAll()
 		.requestMatchers("/css/**").permitAll()
 		.requestMatchers("/403**").permitAll()
+		.requestMatchers("/voeg-boek-toe").access(new WebExpressionAuthorizationManager("hasRole('ROLE_ADMIN')"))
 		.requestMatchers("/**").access(new WebExpressionAuthorizationManager("hasAnyRole('ROLE_USER','ROLE_ADMIN')")))
 		.formLogin(form -> form.defaultSuccessUrl("/bibliotheek", true))
 		.exceptionHandling().accessDeniedPage("/403");

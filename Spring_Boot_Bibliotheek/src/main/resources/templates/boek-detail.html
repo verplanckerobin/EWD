@@ -22,14 +22,14 @@
 		</tr>
 		<tr>
 			<td>Aankoopprijs</td>
-			<td th:text="${boek.aankoopprijs}"></td>
+			<td th:text="${#numbers.formatCurrency(boek.aankoopprijs)}"></td>
 		</tr>
 	</table>
 	
 	<br>
 	<p>AUTEURS:</p>
 	<ul th:each="auteur: ${lijstAuteurs}" >
-		<li th:text="|${auteur.naam} ${auteur.voornaam}|"></li>
+		<li th:text="|${auteur.auteurNaam} ${auteur.voornaam}|"></li>
 	</ul>	
 	<p>LOCATIES:</p>
 	<ul th:each="locatie: ${lijstLocaties}" >

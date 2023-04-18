@@ -1,10 +1,13 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.validator.constraints.ISBN;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -28,9 +31,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor()
+@NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = { "boekNaam", "aankoopprijs", "aantalSterren", "auteurs", "locaties" })
+@EqualsAndHashCode(exclude = { "naam", "aankoopprijs", "aantalSterren", "auteurs", "locaties" })
 public class Boek implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,13 +43,14 @@ public class Boek implements Serializable {
     private Long id;
 
     @NotEmpty(message = "{validation.boekNaam.NotEmpty.message}")
-    private String boekNaam;
+    private String naam;
 
     @NotNull(message = "{validation.boekISBN.NotNull.message}")
     @Pattern(regexp = "^\\d{13}$", message = "{validation.boekISBN.Pattern.message}")
     @ISBN(message = "{validation.boekISBN.Validation.message}")
     private String isbnNummer;
 
+    @NumberFormat(style = Style.CURRENCY)
     @Range(min = 1, max = 99, message = "{validation.boekAankoopprijs.Range.message}")
     private Integer aankoopprijs;
 
@@ -57,12 +61,12 @@ public class Boek implements Serializable {
     @NotNull(message = "{validation.auteurs.MinSize.message}")
     @Size(min = 1, message = "{validation.auteurs.MinSize.message}")
     @Size(max = 3, message = "{validation.auteurs.MaxSize.message}")
-    private List<Auteur> auteurs;
+    private List<Auteur> auteurs = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "boek_id", referencedColumnName = "id")
     @NotNull(message = "{validation.locaties.MinSize.message}")
     @Size(min = 1, message = "{validation.locaties.MinSize.message}")
     @Size(max = 3, message = "{validation.locaties.MaxSize.message}")
-    private List<Locatie> locaties;
+    private List<Locatie> locaties = new ArrayList<>();
 }

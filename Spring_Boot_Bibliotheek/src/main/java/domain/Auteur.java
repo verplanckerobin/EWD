@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -36,5 +37,5 @@ public class Auteur implements Serializable {
     private String voornaam;
 
     @ManyToMany(mappedBy = "auteurs")
-    private List<Boek> boeken;
+    private List<Boek> boeken = new ArrayList<>();
 }

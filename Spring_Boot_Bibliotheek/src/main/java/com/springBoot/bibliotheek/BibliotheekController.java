@@ -76,45 +76,76 @@ public class BibliotheekController {
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
 	model.addAttribute("locatie", new Locatie());
-	model.addAttribute("auteurList", auteurRepo.findAll());
-	model.addAttribute("locatieList", locatieRepo.findAll());
+	model.addAttribute("auteurs", auteurRepo.findAll());
+	model.addAttribute("locaties", locatieRepo.findAll());
 	return "voeg-boek-toe";
+    }
+
+    @PostMapping("/voeg-boek-toe")
+    public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result, Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("auteur", new Auteur());
+	    model.addAttribute("locatie", new Locatie());
+	    model.addAttribute("auteurs", auteurRepo.findAll());
+	    model.addAttribute("locaties", locatieRepo.findAll());
+	    return "voeg-boek-toe";
+	}
+
+	Boek bestaandBoek = boekRepo.findByIsbnNummer(boek.getIsbnNummer());
+
+	if (bestaandBoek != null) {
+	    return "redirect:/voeg-boek-toe";
+	}
+
+	boekRepo.save(boek);
+	return "redirect:/bibliotheek";
+    }
+
+    @PostMapping("/voeg-auteur-toe")
+    public String voegAuteurToe(@Valid @ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("boek", new Boek());
+	    model.addAttribute("locatie", new Locatie());
+	    model.addAttribute("auteurs", auteurRepo.findAll());
+	    model.addAttribute("locaties", locatieRepo.findAll());
+	    return "voeg-boek-toe";
+	}
+
+	Auteur bestaandeAuteur = auteurRepo.findByAuteurNaamAndVoornaam(auteur.getAuteurNaam(), auteur.getVoornaam());
+
+	if (bestaandeAuteur != null) {
+	    return "redirect:/voeg-boek-toe";
+	}
+
+	auteurRepo.save(auteur);
+	return "redirect:/voeg-boek-toe";
+    }
+
+    @PostMapping("/voeg-locatie-toe")
+    public String voegLocatieToe(@Valid @ModelAttribute("locatie") Locatie locatie, BindingResult result, Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("boek", new Boek());
+	    model.addAttribute("auteur", new Auteur());
+	    model.addAttribute("auteurs", auteurRepo.findAll());
+	    model.addAttribute("locaties", locatieRepo.findAll());
+	    return "voeg-boek-toe";
+	}
+
+	Locatie bestaandeLocatie = locatieRepo.findByPlaatscode1AndPlaatscode2AndPlaatsnaam(locatie.getPlaatscode1(),
+		locatie.getPlaatscode2(), locatie.getPlaatsnaam());
+
+	if (bestaandeLocatie != null) {
+	    return "redirect:/voeg-boek-toe";
+	}
+
+	locatieRepo.save(locatie);
+	return "redirect:/voeg-boek-toe";
     }
 
     @GetMapping("/populairste-boeken")
     public String toonMeestPopulaireBoeken(Model model) {
 	model.addAttribute("lijstPopulairsteBoeken", boekRepo.findAllByOrderByAantalSterrenDescNaamAsc());
 	return "populairste-boeken";
-    }
-
-    @PostMapping("/voeg-boek-toe")
-    public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result,
-	    @ModelAttribute("auteur") Auteur auteur, @ModelAttribute("locatie") Locatie locatie) {
-	if (result.hasErrors()) {
-	    return "voeg-boek-toe";
-	}
-	boekRepo.save(boek);
-	return "redirect:/bibliotheek";
-    }
-
-    @PostMapping("/voeg-auteur-toe")
-    public String voegAuteurToe(@Valid @ModelAttribute("auteur") Auteur auteur, BindingResult result,
-	    @ModelAttribute("boek") Boek boek, @ModelAttribute("locatie") Locatie locatie) {
-	if (result.hasErrors()) {
-	    return "voeg-boek-toe";
-	}
-	auteurRepo.save(auteur);
-	return "redirect:/voeg-boek-toe";
-    }
-
-    @PostMapping("/voeg-locatie-toe")
-    public String voegLocatieToe(@Valid @ModelAttribute("locatie") Locatie locatie, BindingResult result,
-	    @ModelAttribute("boek") Boek boek, @ModelAttribute("auteur") Auteur auteur) {
-	if (result.hasErrors()) {
-	    return "voeg-boek-toe";
-	}
-	locatieRepo.save(locatie);
-	return "redirect:/voeg-boek-toe";
     }
 
     @PostMapping("/boek/{id}")
