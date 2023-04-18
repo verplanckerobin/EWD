@@ -2,8 +2,10 @@ package com.springBoot.bibliotheek;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,9 @@ public class BibliotheekController {
 
     @Autowired
     private GebruikerRepository gebruikerRepo;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping("bibliotheek")
     public String getBibliotheek(Model model, Authentication authentication) {
@@ -83,19 +88,20 @@ public class BibliotheekController {
     }
 
     @PostMapping("/voeg-boek-toe")
-    public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result, Model model) {
-	if (result.hasErrors()) {
+    public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result, Model model,
+	    Locale locale) {
+	Boek bestaandBoek = boekRepo.findByIsbnNummer(boek.getIsbnNummer());
+
+	if (result.hasErrors() || bestaandBoek != null) {
+	    if (bestaandBoek != null) {
+		model.addAttribute("errorMsg",
+			messageSource.getMessage("validation.boek.Exists.message", null, locale));
+	    }
 	    model.addAttribute("auteur", new Auteur());
 	    model.addAttribute("locatie", new Locatie());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAll());
 	    return "voeg-boek-toe";
-	}
-
-	Boek bestaandBoek = boekRepo.findByIsbnNummer(boek.getIsbnNummer());
-
-	if (bestaandBoek != null) {
-	    return "redirect:/voeg-boek-toe";
 	}
 
 	boekRepo.save(boek);
