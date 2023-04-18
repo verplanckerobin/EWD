@@ -30,6 +30,8 @@ public class Locatie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private boolean inGebruik = false;
+
     @NotNull(message = "{validation.locatiePlaatscode.NotNull.message}")
     @Range(min = 50, max = 300, message = "{validation.locatiePlaatscode.Range.message}")
     private Integer plaatscode1;

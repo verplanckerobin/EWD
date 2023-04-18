@@ -53,8 +53,8 @@
   		
 	    <button class="btn btn-primary" type="submit">Voeg toe</button>
 	    
-	    <div th:if="${errorMsg}">
-  			<p th:text="${errorMsg}"></p>
+	    <div th:if="${errorBoekBestaat}">
+  			<p th:text="${errorBoekBestaat}"></p>
 		</div>
    	</form>
    	
@@ -75,6 +75,10 @@
         <br>
 
         <input type="submit" value="Voeg auteur toe" />
+        
+        <div th:if="${errorAuteurBestaat}">
+  			<p th:text="${errorAuteurBestaat}"></p>
+		</div>
     </form>
     
     <hr />
@@ -100,6 +104,13 @@
         <br>
 
         <input type="submit" value="Voeg locatie toe" />
+        
+        <div th:if="${errorLocatieBestaat}">
+  			<p th:text="${errorLocatieBestaat}"></p>
+		</div>
+		<div th:if="${errorVerschilCodes}">
+  			<p th:text="${errorVerschilCodes}"></p>
+		</div>
     </form>
     
     <hr />
