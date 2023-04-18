@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import domain.Auteur;
 import domain.Boek;
@@ -149,7 +150,8 @@ public class BibliotheekController {
     }
 
     @PostMapping("/boek/{id}")
-    public String saveBoekFavoriet(@PathVariable(value = "id") Long id, Principal principal) {
+    public String saveBoekFavoriet(@PathVariable(value = "id") Long id, Principal principal,
+	    RedirectAttributes redirectAttributes) {
 	Gebruiker actieveGebruiker = gebruikerRepo.getGebruikerByUsername(principal.getName());
 	Boek boekFetch = boekRepo.findById(id).get();
 
@@ -158,11 +160,15 @@ public class BibliotheekController {
 	    boekFetch.setAantalSterren(boekFetch.getAantalSterren() - 1);
 	    boekRepo.save(boekFetch);
 	    gebruikerRepo.save(actieveGebruiker);
+	    redirectAttributes.addFlashAttribute("favorietBericht",
+		    boekFetch.getNaam() + " werd verwijderd uit favorieten");
 	} else {
 	    actieveGebruiker.addFavoriet(boekFetch);
 	    boekFetch.setAantalSterren(boekFetch.getAantalSterren() + 1);
 	    boekRepo.save(boekFetch);
 	    gebruikerRepo.save(actieveGebruiker);
+	    redirectAttributes.addFlashAttribute("favorietBericht",
+		    boekFetch.getNaam() + " werd toegevoegd aan favorieten");
 	}
 	return "redirect:/bibliotheek";
     }

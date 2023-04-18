@@ -41,7 +41,9 @@
 	
 	<br>
 	
-	<div th:if="${msgFav}" class="msg" th:text="${msgFav}"></div>
+	<div th:if="${favorietBericht}" class="alert alert-success" role="alert">
+    	<span th:text="${favorietBericht}"></span>
+	</div>
 	
 	<br>
 	
