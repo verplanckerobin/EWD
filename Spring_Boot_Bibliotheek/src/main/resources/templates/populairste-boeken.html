@@ -7,9 +7,57 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-	<h1>Populairste boeken</h1>
-	<ul th:each="boek: ${lijstPopulairsteBoeken}" >
-		<li th:text="|${boek.naam} - ${boek.aantalSterren}|"></li>
-	</ul>	
+	<div class="mask d-flex align-items-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 gy-5 text-center">
+					<h1>Populairste boeken</h1>
+				</div>
+			</div>
+     	</div>
+   	</div>
+   	
+   	<div class="mask d-flex align-items-center">
+		<div class="container">
+    		<div class="row justify-content-center">
+         		<div class="col-12 gy-4">
+           			<div class="card">
+             			<div class="card-body p-0">
+               				<div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
+								<table class="table">
+									<thead style="background-color: #002d72;">
+										<tr>
+											<th scope="col">Positie</th>
+											<th scope="col">Naam boek</th>
+											<th scope="col">Aantal stemmen</th>
+										</tr>
+									</thead>
+									<tbody class="table-group-divider">
+										<tr th:each="boek, iter: ${lijstPopulairsteBoeken}">
+											<td th:text="${iter.count}"></td>
+											<td th:text="${boek.naam}"></td>
+											<td th:text="${boek.aantalSterren}"></td>
+										</tr>
+									</tbody>
+								</table>
+               				</div>
+             			</div>
+           			</div>
+         		</div>
+       		</div>
+     	</div>
+   	</div>	
+   	
+  	<div class="mask d-flex align-items-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 gy-4 text-end">
+					<div class="card-body p-0">
+						<a class="btn btn-primary" th:href="@{/bibliotheek}" role="button" style="background-color: #002d72">Terug</a>
+					</div>
+				</div>
+			</div>
+     	</div>
+   	</div>
 </body>
 </html>
