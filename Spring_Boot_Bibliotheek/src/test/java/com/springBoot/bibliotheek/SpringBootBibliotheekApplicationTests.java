@@ -1,7 +1,9 @@
 package com.springBoot.bibliotheek;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -26,17 +28,28 @@ class SpringBootBibliotheekApplicationTests {
 	mockMvc.perform(get("/403")).andExpect(status().isOk()).andExpect(view().name("403"));
     }
 
-    @WithMockUser(username = "user", roles = { "USER" })
+    @WithMockUser(username = "user", roles = { "USER", "ADMIN" })
     @Test
     public void testAccessWithUserRole() throws Exception {
 	mockMvc.perform(get("/bibliotheek")).andExpect(status().isOk()).andExpect(view().name("bibliotheek"))
 		.andExpect(model().attributeExists("username")).andExpect(model().attribute("username", "user"));
     }
 
-    @WithMockUser(username = "admin", roles = { "ADMIN", "NOT_USER_NOT_ADMIN" })
+    @WithMockUser(username = "user", roles = { "NOT_USER" })
     @Test
     public void testNoAccess() throws Exception {
 	mockMvc.perform(get("/bibliotheek")).andExpect(status().isForbidden());
     }
 
+    @Test
+    void testWrongPassword() throws Exception {
+	mockMvc.perform(formLogin("/login").user("username", "nameUser").password("password", "wrongpassword"))
+		.andExpect(status().isFound()).andExpect(redirectedUrl("/login?error"));
+    }
+
+    @Test
+    void testCorrectPassword() throws Exception {
+	mockMvc.perform(formLogin("/login").user("username", "admin").password("password", "admin"))
+		.andExpect(status().isFound()).andExpect(redirectedUrl("/bibliotheek"));
+    }
 }

@@ -48,17 +48,18 @@ public class BibliotheekController {
     @GetMapping("bibliotheek")
     public String getBibliotheek(Model model, Authentication authentication) {
 	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-	model.addAttribute("username", authentication.getName());
 	model.addAttribute("userListRoles", listRoles);
+	model.addAttribute("username", authentication.getName());
 	model.addAttribute("boekList", boekRepo.findAll());
 	return "bibliotheek";
     }
 
     @GetMapping("/boek/{id}")
-    public String getBoek(@PathVariable Long id, Model model, Principal principal) {
+    public String getBoek(@PathVariable Long id, Model model, Principal principal, Authentication authentication) {
 	Boek boekFetch = boekRepo.findById(id).get();
 	Gebruiker actieveGebruiker = gebruikerRepo.getGebruikerByUsername(principal.getName());
 	Boolean heeftMaxAantalFavorieten = false;
+	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
 	if (boekFetch == null) {
 	    return "redirect:/bibliotheek";
@@ -73,12 +74,15 @@ public class BibliotheekController {
 	model.addAttribute("lijstLocaties", boekFetch.getLocaties());
 	model.addAttribute("isReedsFavoriet", actieveGebruiker.getFavorieten().contains(boekFetch));
 	model.addAttribute("maxAantal", heeftMaxAantalFavorieten);
+	model.addAttribute("userListRoles", listRoles);
 
 	return "boek-detail";
     }
 
     @GetMapping("/voeg-boek-toe")
-    public String toonVoegBoekToeForm(Model model) {
+    public String toonVoegBoekToeForm(Model model, Authentication authentication) {
+	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+	model.addAttribute("userListRoles", listRoles);
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
 	model.addAttribute("locatie", new Locatie());
@@ -159,7 +163,9 @@ public class BibliotheekController {
     }
 
     @GetMapping("/populairste-boeken")
-    public String toonMeestPopulaireBoeken(Model model) {
+    public String toonMeestPopulaireBoeken(Model model, Authentication authentication) {
+	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+	model.addAttribute("userListRoles", listRoles);
 	model.addAttribute("lijstPopulairsteBoeken", boekRepo.findAllByOrderByAantalSterrenDescNaamAsc());
 	return "populairste-boeken";
     }

@@ -33,15 +33,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-						<a class="btn btn-primary" th:href="@{/voeg-boek-toe}" role="button" style="background-color: #002d72">Voeg boek toe</a>
-					</th:block>
-	     		</div>
-				<div class="col-6 text-end">
 					<div class="card-body p-0">
 						<a class="btn btn-primary" th:href="@{/populairste-boeken}" role="button" style="background-color: #002d72">Meest populaire boeken</a>
 					</div>
 				</div>
+				<div class="col-6  text-end">
+					<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+						<a class="btn btn-primary" th:href="@{/voeg-boek-toe}" role="button" style="background-color: #002d72">Voeg boek toe</a>
+					</th:block>
+	     		</div>
 			</div>
      	</div>
    	</div>

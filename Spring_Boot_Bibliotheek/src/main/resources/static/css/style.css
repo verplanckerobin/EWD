@@ -34,3 +34,9 @@ thead {
 .error {
 	color: red;
 }
+
+.list-group-mine .list-group-item {
+  background-color: #002d72;
+  font-weight: bold;
+  color: white;
+}
