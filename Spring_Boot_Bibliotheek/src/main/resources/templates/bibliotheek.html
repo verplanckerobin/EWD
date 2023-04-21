@@ -34,12 +34,12 @@
 			<div class="row">
 				<div class="col-6">
 					<div class="card-body p-0">
-						<a class="btn btn-primary" th:href="@{/populairste-boeken}" role="button" style="background-color: #002d72">Meest populaire boeken</a>
+						<a class="btn btn-primary" th:href="@{/populairste-boeken}" role="button" style="background-color: grey; border: none">Meest populaire boeken</a>
 					</div>
 				</div>
 				<div class="col-6  text-end">
 					<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-						<a class="btn btn-primary" th:href="@{/voeg-boek-toe}" role="button" style="background-color: #002d72">Voeg boek toe</a>
+						<a class="btn btn-primary" th:href="@{/voeg-boek-toe}" role="button" style="background-color: grey; border: none">Voeg boek toe</a>
 					</th:block>
 	     		</div>
 			</div>
@@ -91,7 +91,7 @@
 	     		</div>
 				<div class="col-6 gy-4 text-end">
 					<form th:action="@{/logout}" method="post">
-						<button type="submit" class="btn btn-primary" style="background-color: #002d72">Logout</button>
+						<button type="submit" class="btn btn-primary" style="background-color: grey; border: none">Logout</button>
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					</form>
 	     		</div>

@@ -41,7 +41,7 @@ public class Locatie implements Serializable {
     private int plaatscode2;
 
     @NotNull(message = "{validation.locatiePlaatsnaam.NotNull.message}")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "{validation.locatiePlaatsnaam.Pattern.message}")
+    @Pattern(regexp = "^[a-zA-Z\s]+$", message = "{validation.locatiePlaatsnaam.Pattern.message}")
     private String plaatsnaam;
 
     public Locatie(Integer plaatscode1, Integer plaatscode2, String plaatsnaam) {
@@ -50,5 +50,4 @@ public class Locatie implements Serializable {
 	this.plaatsnaam = plaatsnaam;
 	inGebruik = false;
     }
-
 }

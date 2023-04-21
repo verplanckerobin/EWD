@@ -24,12 +24,12 @@
 	    		</div>
 				<div class="col-6 gy-4 text-end">
 					<form th:action="@{/logout}" method="post">
-						<button type="submit" class="btn btn-primary" style="background-color: #002d72">Logout</button>
+						<button type="submit" class="btn btn-primary" style="background-color: grey; border: none">Logout</button>
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					</form>
 	   			</div>
 			</div>
-			<hr style="height:2px;background-color:dark;" />
+			<hr style="height:5px;color:#002d72;opacity: 100" />
 	  	</div>
 	</div>
 	<div class="mask d-flex align-items-center">
@@ -60,11 +60,11 @@
 						</div>
 					</div>		    	
 				</div>
-				<button type="submit" class="btn btn-primary" style="background-color: #002d72">Voeg auteur toe</button>
+				<button type="submit" class="btn btn-primary" style="background-color: grey; border: none">Voeg auteur toe</button>
 		        <div th:if="${errorAuteurBestaat}">
 		  			<p th:text="${errorAuteurBestaat}"></p>
 				</div>
-				<hr style="height:2px;background-color:dark;" />
+				<hr style="height:5px;color:#002d72;opacity: 100" />
 		    </form>
      	</div>
    	</div>
@@ -103,14 +103,14 @@
 				        </div>
 			        </div>
 				</div>
-		        <button type="submit" class="btn btn-primary" style="background-color: #002d72">Voeg locatie toe</button>
+		        <button type="submit" class="btn btn-primary" style="background-color: grey; border: none">Voeg locatie toe</button>
 		        <div th:if="${errorLocatieBestaat}">
 		  			<p th:text="${errorLocatieBestaat}"></p>
 				</div>
 				<div th:if="${errorVerschilCodes}">
 		  			<p th:text="${errorVerschilCodes}"></p>
 				</div>
-				<hr style="height:2px;background-color:dark;" />
+				<hr style="height:5px;color:#002d72;opacity: 100" />
 		    </form>
    		</div>
    	</div>
@@ -175,7 +175,7 @@
 					    </div>
 				    </div>
 				</div>
-			 	<button type="submit" class="btn btn-primary" style="background-color: #002d72">Voeg toe</button>
+			 	<button type="submit" class="btn btn-primary" style="background-color: grey; border: none">Voeg toe</button>
 			    <div th:if="${errorBoekBestaat}">
 		  			<p th:text="${errorBoekBestaat}"></p>
 				</div>
@@ -187,7 +187,7 @@
 			<div class="row">
 				<div class="col-12 gy-4 text-end">
 					<div class="card-body p-0">
-						<a class="btn btn-primary" th:href="@{/bibliotheek}" role="button" style="background-color: #002d72">Terug</a>
+						<a class="btn btn-primary" th:href="@{/bibliotheek}" role="button" style="background-color: grey; border: none">Terug</a>
 					</div>
 				</div>
 			</div>

@@ -25,7 +25,7 @@
 	     		</div>
 				<div class="col-6 gy-4 text-end">
 					<form th:action="@{/logout}" method="post">
-						<button type="submit" class="btn btn-primary" style="background-color: #002d72">Logout</button>
+						<button type="submit" class="btn btn-primary" style="background-color: grey; border: none">Logout</button>
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					</form>
 	     		</div>
@@ -139,9 +139,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 g-4 text-center">
-					<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} and ${!maxAantal}">
+					<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 						<form th:action="@{/boek/__${boek.id}__}" th:object="${boek}" method="post">
-							<button class="btn btn-primary" type="submit" style="background-color: #002d72; font-weight: bold" th:text="${isReedsFavoriet} ? 'VERWIJDER FAVORIET': 'MAAK FAVORIET'"></button>
+							<button class="btn btn-primary" type="submit" style="background-color: grey; border: none" th:text="${isReedsFavoriet} ? 'VERWIJDER FAVORIET': 'MAAK FAVORIET'" th:hidden="${maxAantal && !isReedsFavoriet}"></button>
 						</form>
 					</th:block>
 	     		</div>
@@ -154,7 +154,7 @@
 			<div class="row">
 				<div class="col-12 gy-4 text-end">
 					<div class="card-body p-0">
-						<a class="btn btn-primary" th:href="@{/bibliotheek}" role="button" style="background-color: #002d72">Terug</a>
+						<a class="btn btn-primary" th:href="@{/bibliotheek}" role="button" style="background-color: grey; border: none">Terug</a>
 					</div>
 				</div>
 			</div>
