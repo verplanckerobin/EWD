@@ -7,121 +7,191 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<h1>Voeg een boek toe</h1>
-
-	<form th:action="@{/voeg-boek-toe}" th:object="${boek}" method="POST">
-
-   		<label>Boek naam:</label>
-   		<input type="text" th:field="*{naam}" />
-   		<span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
-   		
-   		<br>
-
-        <label>ISBN nummer:</label>
-        <input type="text" th:field="*{isbnNummer}" />
-        <span th:if="${#fields.hasErrors('isbnNummer')}" th:errorclass="error" th:errors="*{isbnNummer}"></span>
-        
-        <br>
-
-        <label>Aankoopprijs:</label>
-        <input type="text" th:field="*{aankoopprijs}" />
-    	<span th:if="${#fields.hasErrors('aankoopprijs')}" th:errorclass="error" th:errors="*{aankoopprijs}"></span>
-    	
-    	<br>
-
-        <label>Auteurs:</label>
-        <div>
-  			<span th:if="${#fields.hasErrors('auteurs')}" th:errorclass="error" th:errors="*{auteurs}"></span>
-  		</div>
-        <div th:each="auteur : ${auteurs}">
-		    <label>
-				<input type="checkbox" th:field="*{auteurs}" th:value="${auteur.id}" /> 
-				<span th:text="|${auteur.auteurNaam} ${auteur.voornaam}|"></span>
-		    </label>
-  		</div>
-  		
-  		<label>Locaties:</label>
-        <div>
-  			<span th:if="${#fields.hasErrors('locaties')}" th:errorclass="error" th:errors="*{locaties}"></span>
-  		</div>
-        <div th:each="locatie : ${locaties}">
-		    <label>
-				<input type="checkbox" th:field="*{locaties}" th:value="${locatie.id}" /> 
-				<span th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></span>
-		    </label>
-  		</div>
-  		
-	    <button class="btn btn-primary" type="submit">Voeg toe</button>
-	    
-	    <div th:if="${errorBoekBestaat}">
-  			<p th:text="${errorBoekBestaat}"></p>
+	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<div class="row">
+				<div class="col-12 gy-2 text-center">
+					<h1>Voeg hieronder een nieuw boek toe</h1>
+				</div>
+			</div>
+     	</div>
+   	</div>
+ 	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<div class="row">
+				<div class="col-6 gy-4 ">
+					<p th:text="|Huidige rol(len): ${userListRoles}|"></p>
+	    		</div>
+				<div class="col-6 gy-4 text-end">
+					<form th:action="@{/logout}" method="post">
+						<button type="submit" class="btn btn-primary" style="background-color: #002d72">Logout</button>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					</form>
+	   			</div>
+			</div>
+			<hr style="height:2px;background-color:dark;" />
+	  	</div>
+	</div>
+	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<div class="row">
+				<div class="col-12 gy-2" >
+					<h2>1: Voeg auteur(s) toe</h2>
+				</div>
+			</div>
+     	</div>
+   	</div>
+   	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<form th:action="@{/voeg-auteur-toe}" th:object="${auteur}" method="post">
+				<div class="row">
+					<div class="col-6 gy-2">
+						<div class="mb-3">
+							<label class="form-label" for="auteurNaam">Naam:</label>
+							<input class="form-control" id="auteurNaam" type="text" th:field="*{auteurNaam}" />
+				        	<span th:if="${#fields.hasErrors('auteurNaam')}" th:errorclass="error" th:errors="*{auteurNaam}"></span>
+						</div>	
+					</div>
+					<div class="col-6 gy-2">
+						<div class="mb-3">
+							<label class="form-label" for="voornaam">Voornaam:</label>
+				        	<input class="form-control" id="voornaam" type="text" th:field="*{voornaam}" />
+				        	<span th:if="${#fields.hasErrors('voornaam')}" th:errorclass="error" th:errors="*{voornaam}"></span>
+						</div>
+					</div>		    	
+				</div>
+				<button type="submit" class="btn btn-primary" style="background-color: #002d72">Voeg auteur toe</button>
+		        <div th:if="${errorAuteurBestaat}">
+		  			<p th:text="${errorAuteurBestaat}"></p>
+				</div>
+				<hr style="height:2px;background-color:dark;" />
+		    </form>
+     	</div>
+   	</div>
+	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<div class="row">
+				<div class="col-12 gy-3" >
+					<h2>2: Voeg locatie(s) toe</h2>
+				</div>
+			</div>
+     	</div>
+   	</div>
+   	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<form th:action="@{/voeg-locatie-toe}" th:object="${locatie}" method="post">
+				<div class="row">
+					<div class="col-4 gy-2">
+						<div class="mb-3">
+					        <label class="form-label" for="plaatscode1">Plaatscode 1:</label>
+					        <input class="form-control" id="plaatscode1" type="text" th:field="*{plaatscode1}" />
+					        <span th:if="${#fields.hasErrors('plaatscode1')}" th:errorclass="error" th:errors="*{plaatscode1}"></span>
+				        </div>
+			        </div>
+			        <div class="col-4 gy-2">
+				        <div class="mb-3">
+				        	<label class="form-label" for="plaatscode2">Plaatscode 2:</label>
+				        	<input class="form-control" id="plaatscode2" type="text" th:field="*{plaatscode2}" />
+				        	<span th:if="${#fields.hasErrors('plaatscode2')}" th:errorclass="error" th:errors="*{plaatscode2}"></span>
+				        </div>
+			        </div>
+			        <div class="col-4 gy-2">
+				        <div class="mb-3">
+				        	<label class="form-label" for="plaatsnaam">Plaatsnaam:</label>
+				        	<input class="form-control" id="plaatsnaam" type="text" th:field="*{plaatsnaam}" />
+				        	<span th:if="${#fields.hasErrors('plaatsnaam')}" th:errorclass="error" th:errors="*{plaatsnaam}"></span>
+				        </div>
+			        </div>
+				</div>
+		        <button type="submit" class="btn btn-primary" style="background-color: #002d72">Voeg locatie toe</button>
+		        <div th:if="${errorLocatieBestaat}">
+		  			<p th:text="${errorLocatieBestaat}"></p>
+				</div>
+				<div th:if="${errorVerschilCodes}">
+		  			<p th:text="${errorVerschilCodes}"></p>
+				</div>
+				<hr style="height:2px;background-color:dark;" />
+		    </form>
+   		</div>
+   	</div>
+	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<div class="row">
+				<div class="col-12 gy-2" >
+					<h2>3: Voeg boek toe</h2>
+				</div>
+			</div>
+     	</div>
+   	</div>
+	<div class="mask d-flex align-items-center">
+		<div class="container px-4">
+			<form th:action="@{/voeg-boek-toe}" th:object="${boek}" method="POST">
+				<div class="row">
+					<div class="col-4 gy-2">
+						<div class="mb-3">
+					   		<label class="form-label" for="boekNaam">Boek naam:</label>
+					   		<input class="form-control" id="boekNaam" type="text" th:field="*{naam}" />
+					   		<span th:if="${#fields.hasErrors('naam')}" th:errorclass="error" th:errors="*{naam}"></span>
+					   	</div>
+				   	</div>
+				   	<div class="col-4 gy-2">
+						<div class="mb-3">
+					        <label class="form-label" for="isbnNummer">ISBN nummer:</label>
+					        <input class="form-control" id="isbnNummer" type="text" th:field="*{isbnNummer}" />
+					        <span th:if="${#fields.hasErrors('isbnNummer')}" th:errorclass="error" th:errors="*{isbnNummer}"></span>
+						</div>
+					</div>
+					<div class="col-4 gy-2">
+						<div class="mb-3">
+					        <label class="form-label" for="aankoopprijs">Aankoopprijs:</label>
+					        <input class="form-control" id="aankoopprijs" type="text" th:field="*{aankoopprijs}" />
+					    	<span th:if="${#fields.hasErrors('aankoopprijs')}" th:errorclass="error" th:errors="*{aankoopprijs}"></span>
+					    </div>
+				    </div>
+   				</div>
+   				<div class="row">
+	   				<div class="col-6 gy-2">
+					    <div class="mb-3">
+					    	<label>Auteurs:</label>
+					    	<div>
+				  				<span th:if="${#fields.hasErrors('auteurs')}" th:errorclass="error" th:errors="*{auteurs}"></span>
+				  			</div>
+					    	<div class="form-check" th:each="auteur : ${auteurs}">
+								<input class="form-check-input" type="checkbox" th:field="*{auteurs}" th:value="${auteur.id}" /> 
+								<label class="form-check-label" th:text="|${auteur.auteurNaam} ${auteur.voornaam}|"></label>
+				  			</div>
+					    </div>
+				    </div>
+				    <div class="col-6 gy-2">
+					    <div class="mb-3">
+					    	<label>Locaties:</label>
+					    	<div>
+				  				<span th:if="${#fields.hasErrors('locaties')}" th:errorclass="error" th:errors="*{locaties}"></span>
+				  			</div>
+				  			<div class="form-check" th:each="locatie : ${locaties}">
+				  				<input class="form-check-input" type="checkbox" th:field="*{locaties}" th:value="${locatie.id}" /> 
+								<label class="form-check-label" th:text="|${locatie.plaatscode1} - ${locatie.plaatscode2} - ${locatie.plaatsnaam}|"></label>
+				  			</div>
+					    </div>
+				    </div>
+				</div>
+			 	<button type="submit" class="btn btn-primary" style="background-color: #002d72">Voeg toe</button>
+			    <div th:if="${errorBoekBestaat}">
+		  			<p th:text="${errorBoekBestaat}"></p>
+				</div>
+		   	</form>
 		</div>
-   	</form>
-   	
-   	<hr />
-
-    <h1>Voeg nieuwe auteur toe</h1>
-    <form th:action="@{/voeg-auteur-toe}" th:object="${auteur}" method="post">
-		<label for="auteurNaam">Naam:</label>
-        <input type="text" th:field="*{auteurNaam}" />
-        <span th:if="${#fields.hasErrors('auteurNaam')}" th:errorclass="error" th:errors="*{auteurNaam}"></span>
-        
-        <br>
-
-        <label for="voornaam">Voornaam:</label>
-        <input type="text" th:field="*{voornaam}" />
-        <span th:if="${#fields.hasErrors('voornaam')}" th:errorclass="error" th:errors="*{voornaam}"></span>
-        
-        <br>
-
-        <input type="submit" value="Voeg auteur toe" />
-        
-        <div th:if="${errorAuteurBestaat}">
-  			<p th:text="${errorAuteurBestaat}"></p>
-		</div>
-    </form>
-    
-    <hr />
-
-    <h1>Voeg nieuwe locatie toe</h1>
-    <form th:action="@{/voeg-locatie-toe}" th:object="${locatie}" method="post">
-        <label for="plaatscode1">Plaatscode 1:</label>
-        <input type="text" th:field="*{plaatscode1}" />
-        <span th:if="${#fields.hasErrors('plaatscode1')}" th:errorclass="error" th:errors="*{plaatscode1}"></span>
-        
-        <br>
-
-        <label for="plaatscode2">Plaatscode 2:</label>
-        <input type="text" th:field="*{plaatscode2}" />
-        <span th:if="${#fields.hasErrors('plaatscode2')}" th:errorclass="error" th:errors="*{plaatscode2}"></span>
-        
-        <br>
-        
-        <label for="plaatsnaam">Plaatsnaam:</label>
-        <input type="text" th:field="*{plaatsnaam}" />
-        <span th:if="${#fields.hasErrors('plaatsnaam')}" th:errorclass="error" th:errors="*{plaatsnaam}"></span>
-        
-        <br>
-
-        <input type="submit" value="Voeg locatie toe" />
-        
-        <div th:if="${errorLocatieBestaat}">
-  			<p th:text="${errorLocatieBestaat}"></p>
-		</div>
-		<div th:if="${errorVerschilCodes}">
-  			<p th:text="${errorVerschilCodes}"></p>
-		</div>
-    </form>
-    
-    <hr />
-    
-    <a class="btn btn-warning" th:href="@{/bibliotheek}">Terug naar home</a>
-    
-    <hr />
-    
-    <form th:action="@{/logout}" method="post">
-		<input type="submit" value="Logout" /> 
-		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-	</form>
+	</div>
+   	<div class="mask d-flex align-items-center">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 gy-4 text-end">
+					<div class="card-body p-0">
+						<a class="btn btn-primary" th:href="@{/bibliotheek}" role="button" style="background-color: #002d72">Terug</a>
+					</div>
+				</div>
+			</div>
+     	</div>
+   	</div>
 </body>
 </html>

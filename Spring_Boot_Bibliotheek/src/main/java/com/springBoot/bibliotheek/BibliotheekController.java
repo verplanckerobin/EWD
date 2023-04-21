@@ -104,7 +104,7 @@ public class BibliotheekController {
 	    model.addAttribute("auteur", new Auteur());
 	    model.addAttribute("locatie", new Locatie());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
-	    model.addAttribute("locaties", locatieRepo.findAll());
+	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
 	    return "voeg-boek-toe";
 	}
 
@@ -140,14 +140,16 @@ public class BibliotheekController {
 	Locatie bestaandeLocatie = locatieRepo.findByPlaatscode1AndPlaatscode2AndPlaatsnaam(locatie.getPlaatscode1(),
 		locatie.getPlaatscode2(), locatie.getPlaatsnaam());
 
-	if (result.hasErrors() || bestaandeLocatie != null
-		|| Math.abs(locatie.getPlaatscode1() - locatie.getPlaatscode2()) < 50) {
-	    if (bestaandeLocatie != null) {
+	int verschil = Math.abs(locatie.getPlaatscode1() - locatie.getPlaatscode2());
+
+	if (result.hasErrors() || bestaandeLocatie != null || verschil < 50) {
+	    if (locatieRepo.findByPlaatscode1AndPlaatscode2AndPlaatsnaam(locatie.getPlaatscode1(),
+		    locatie.getPlaatscode2(), locatie.getPlaatsnaam()) != null) {
 		model.addAttribute("errorLocatieBestaat",
 			messageSource.getMessage("validation.locatie.Exists.message", null, locale));
 	    }
 
-	    if (Math.abs(locatie.getPlaatscode1() - locatie.getPlaatscode2()) < 50) {
+	    if (verschil < 50) {
 		model.addAttribute("errorVerschilCodes",
 			messageSource.getMessage("validation.locatie.Verschil.message", null, locale));
 	    }

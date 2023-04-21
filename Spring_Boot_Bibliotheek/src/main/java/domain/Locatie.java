@@ -34,11 +34,11 @@ public class Locatie implements Serializable {
 
     @NotNull(message = "{validation.locatiePlaatscode.NotNull.message}")
     @Range(min = 50, max = 300, message = "{validation.locatiePlaatscode.Range.message}")
-    private Integer plaatscode1;
+    private int plaatscode1;
 
     @NotNull(message = "{validation.locatiePlaatscode.NotNull.message}")
     @Range(min = 50, max = 300, message = "{validation.locatiePlaatscode.Range.message}")
-    private Integer plaatscode2;
+    private int plaatscode2;
 
     @NotNull(message = "{validation.locatiePlaatsnaam.NotNull.message}")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "{validation.locatiePlaatsnaam.Pattern.message}")
