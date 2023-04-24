@@ -13,18 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import repository.BoekRepository;
 
 @Controller
-@RequestMapping("/bibliotheek")
-public class BibliotheekController {
+@RequestMapping("/populairste-boeken")
+public class RankingController {
 
     @Autowired
     private BoekRepository boekRepo;
 
-    @GetMapping
-    public String getBibliotheek(Model model, Authentication authentication) {
+    @GetMapping("/populairste-boeken")
+    public String toonMeestPopulaireBoeken(Model model, Authentication authentication) {
 	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 	model.addAttribute("userListRoles", listRoles);
-	model.addAttribute("username", authentication.getName());
-	model.addAttribute("boekList", boekRepo.findAll());
-	return "bibliotheek";
+	model.addAttribute("lijstPopulairsteBoeken", boekRepo.findAllByOrderByAantalSterrenDescNaamAsc());
+	return "populairste-boeken";
     }
 }
