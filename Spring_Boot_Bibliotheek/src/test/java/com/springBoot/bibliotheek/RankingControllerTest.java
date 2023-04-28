@@ -14,19 +14,19 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BibliotheekControllerTest {
+public class RankingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    //@formatter:off
+  //@formatter:off
     @WithMockUser(username = "user", roles = { "USER", "ADMIN" })
     @Test
     public void testGetRequest() throws Exception {
-	mockMvc.perform(get("/bibliotheek")).andExpect(view().name("bibliotheek")).andExpect(status().isOk())
-		.andExpect(model().attributeExists("username"))
+	mockMvc.perform(get("/populairste-boeken")).andExpect(view().name("populairste-boeken")).andExpect(status().isOk())
 		.andExpect(model().attributeExists("userListRoles"))
-		.andExpect(model().attributeExists("boekList"));
+		.andExpect(model().attributeExists("lijstPopulairsteBoeken"));
     }
     //@formatter:on
+
 }

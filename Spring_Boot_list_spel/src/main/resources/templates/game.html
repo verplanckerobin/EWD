@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="#{game}">game</title>
+</head>
+<body>
+
+       <th:block th:each="value,iter: ${game.showValue}">
+       		<th:block th:if="${game.endGame}">
+                <div th:text="|${iter.count}. ${value}|"></div> 
+       		</th:block>	
+       		<div th:unless="${game.endGame}">
+       			<a th:href="|/game/${iter.index}|" th:text="|${iter.count}. ${value}|"></a>
+       		</div>
+       </th:block>
+       		
+		<br>
+		
+		<th:block th:if="${gameStatus}">
+			<th:block th:text="#{${gameStatus}}"></th:block>
+			<a href="/game" th:text="#{newGame}"></a>
+		</th:block>
+		 
+</body>
+</html>

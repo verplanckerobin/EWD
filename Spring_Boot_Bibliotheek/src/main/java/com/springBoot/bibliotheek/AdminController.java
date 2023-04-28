@@ -1,6 +1,5 @@
 package com.springBoot.bibliotheek;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +38,16 @@ public class AdminController {
 
     @GetMapping("/voeg-boek-toe")
     public String toonVoegBoekToeForm(Model model, Authentication authentication) {
-	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-	model.addAttribute("userListRoles", listRoles);
+	if (authentication != null) {
+	    model.addAttribute("userListRoles",
+		    authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+	}
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
 	model.addAttribute("locatie", new Locatie());
 	model.addAttribute("auteurs", auteurRepo.findAll());
 	model.addAttribute("locaties", locatieRepo.findAllNotInUse());
-	return "voeg-boek-toe";
+	return "voegBoekToe";
     }
 
     @PostMapping("/voeg-boek-toe")
@@ -63,7 +64,7 @@ public class AdminController {
 	    model.addAttribute("locatie", new Locatie());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
-	    return "voeg-boek-toe";
+	    return "voegBoekToe";
 	}
 
 	boek.getLocaties().forEach(l -> l.setInGebruik(true));
@@ -85,7 +86,7 @@ public class AdminController {
 	    model.addAttribute("locatie", new Locatie());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
-	    return "voeg-boek-toe";
+	    return "voegBoekToe";
 	}
 
 	auteurRepo.save(auteur);
@@ -115,7 +116,7 @@ public class AdminController {
 	    model.addAttribute("auteur", new Auteur());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
-	    return "voeg-boek-toe";
+	    return "voegBoekToe";
 	}
 
 	locatieRepo.save(locatie);

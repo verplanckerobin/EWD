@@ -1,11 +1,8 @@
 package com.springBoot.bibliotheek;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +27,10 @@ public class FavorietenController {
     private GebruikerRepository gebruikerRepo;
 
     @GetMapping("{id}")
-    public String getBoek(@PathVariable Long id, Model model, Principal principal, Authentication authentication) {
+    public String getBoek(@PathVariable Long id, Model model, Principal principal) {
 	Boek boekFetch = boekRepo.findById(id).get();
 	Gebruiker actieveGebruiker = gebruikerRepo.getGebruikerByUsername(principal.getName());
 	Boolean heeftMaxAantalFavorieten = false;
-	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
 	if (boekFetch == null) {
 	    return "redirect:/bibliotheek";
@@ -49,7 +45,7 @@ public class FavorietenController {
 	model.addAttribute("lijstLocaties", boekFetch.getLocaties());
 	model.addAttribute("isReedsFavoriet", actieveGebruiker.getFavorieten().contains(boekFetch));
 	model.addAttribute("maxAantal", heeftMaxAantalFavorieten);
-	model.addAttribute("userListRoles", listRoles);
+	model.addAttribute("userRole", actieveGebruiker.getAuthority().toString());
 
 	return "boek-detail";
     }

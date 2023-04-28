@@ -14,19 +14,28 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BibliotheekControllerTest {
+public class AdminControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    //@formatter:off
-    @WithMockUser(username = "user", roles = { "USER", "ADMIN" })
+  //@formatter:off
+    @WithMockUser(username = "admin", roles = { "USER", "ADMIN" })
     @Test
-    public void testGetRequest() throws Exception {
-	mockMvc.perform(get("/bibliotheek")).andExpect(view().name("bibliotheek")).andExpect(status().isOk())
-		.andExpect(model().attributeExists("username"))
+    public void testGetRequestAsAdmin() throws Exception {
+	mockMvc.perform(get("/voeg-boek-toe")).andExpect(view().name("voegBoekToe")).andExpect(status().isOk())
 		.andExpect(model().attributeExists("userListRoles"))
-		.andExpect(model().attributeExists("boekList"));
+		.andExpect(model().attributeExists("boek"))
+		.andExpect(model().attributeExists("auteur"))
+		.andExpect(model().attributeExists("locatie"))
+		.andExpect(model().attributeExists("auteurs"))
+		.andExpect(model().attributeExists("locaties"));
     }
     //@formatter:on
+
+    @WithMockUser(username = "user", roles = { "USER" })
+    @Test
+    public void testNoAccessAsUser() throws Exception {
+	mockMvc.perform(get("/voeg-boek-toe")).andExpect(status().isForbidden());
+    }
 }

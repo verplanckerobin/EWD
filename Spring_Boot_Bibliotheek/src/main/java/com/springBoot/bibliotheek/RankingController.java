@@ -19,7 +19,7 @@ public class RankingController {
     @Autowired
     private BoekRepository boekRepo;
 
-    @GetMapping("/populairste-boeken")
+    @GetMapping
     public String toonMeestPopulaireBoeken(Model model, Authentication authentication) {
 	List<String> listRoles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 	model.addAttribute("userListRoles", listRoles);
