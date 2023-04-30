@@ -5,7 +5,7 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,15 +38,13 @@ public class AdminController {
 
     @GetMapping("/voeg-boek-toe")
     public String toonVoegBoekToeForm(Model model, Authentication authentication) {
-	if (authentication != null) {
-	    model.addAttribute("userListRoles",
-		    authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
-	}
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
 	model.addAttribute("locatie", new Locatie());
 	model.addAttribute("auteurs", auteurRepo.findAll());
 	model.addAttribute("locaties", locatieRepo.findAllNotInUse());
+	model.addAttribute("userRole", auth.getAuthorities());
 	return "voegBoekToe";
     }
 

@@ -87,9 +87,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6 gy-4 ">
-					<div th:each="rol: ${userListRoles}">
-						<p th:text="|Huidige rol: ${rol}|"></p>
-					</div>
+					<p th:text="|Huidige rol: ${userRole}|"></p>
 	     		</div>
 				<div class="col-6 gy-4 text-end">
 					<form th:action="@{/logout}" method="post">

@@ -24,7 +24,7 @@ public class AdminControllerTest {
     @Test
     public void testGetRequestAsAdmin() throws Exception {
 	mockMvc.perform(get("/voeg-boek-toe")).andExpect(view().name("voegBoekToe")).andExpect(status().isOk())
-		.andExpect(model().attributeExists("userListRoles"))
+		.andExpect(model().attributeExists("userRole"))
 		.andExpect(model().attributeExists("boek"))
 		.andExpect(model().attributeExists("auteur"))
 		.andExpect(model().attributeExists("locatie"))

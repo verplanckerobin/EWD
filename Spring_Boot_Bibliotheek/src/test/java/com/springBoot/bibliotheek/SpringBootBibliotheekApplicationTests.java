@@ -13,11 +13,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
 @Import(SecurityConfig.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@SpringJUnitConfig
 class SpringBootBibliotheekApplicationTests {
 
     @Autowired
@@ -31,14 +33,21 @@ class SpringBootBibliotheekApplicationTests {
     @WithMockUser(username = "user", roles = { "USER", "ADMIN" })
     @Test
     public void testAccessWithUserRole() throws Exception {
-	mockMvc.perform(get("/bibliotheek")).andExpect(status().isOk()).andExpect(view().name("bibliotheek"))
-		.andExpect(model().attributeExists("username")).andExpect(model().attribute("username", "user"));
+	mockMvc.perform(get("/bibliotheek")).andExpect(status().isOk()).andExpect(view().name("bibliotheekOverzicht"))
+		.andExpect(model().attributeExists("username")).andExpect(model().attributeExists("userRole"))
+		.andExpect(model().attributeExists("boekList"));
     }
 
     @WithMockUser(username = "user", roles = { "NOT_USER" })
     @Test
     public void testNoAccess() throws Exception {
 	mockMvc.perform(get("/bibliotheek")).andExpect(status().isForbidden());
+    }
+
+    @WithMockUser(username = "user", roles = { "USER" })
+    @Test
+    public void testNoAccessAdminConsole() throws Exception {
+	mockMvc.perform(get("/voeg-boek-toe")).andExpect(status().isForbidden());
     }
 
     @Test

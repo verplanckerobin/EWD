@@ -10,13 +10,11 @@
  	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<div class="row">
-			<!--  
 				<div class="col-4 gy-4 ">
-					<p th:text="|Huidige rol(len): ${userListRoles}|"></p>
-	    		</div>
-	    	-->
+					<p th:text="|Huidige rol: ${userRole}|"></p>
+	     		</div>
 	    		<div class="col-4 gy-4 text-center">
-					<h2>VOEG HIERONDER EEN NIEUW BOEK TOE</h2>
+					<h2>ADMIN CONSOLE</h2>
 				</div>
 				<div class="col-4 gy-4 text-end">
 					<form th:action="@{/logout}" method="post">

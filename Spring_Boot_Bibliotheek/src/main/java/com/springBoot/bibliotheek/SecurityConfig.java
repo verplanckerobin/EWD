@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 @EnableWebSecurity
@@ -30,11 +29,12 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	// @formatter:off
 	http.csrf().and().authorizeHttpRequests(requests -> requests
-		.requestMatchers("/login**").permitAll()
-		.requestMatchers("/css/**").permitAll()
-		.requestMatchers("/403**").permitAll()
-		.requestMatchers("/voeg-boek-toe").access(new WebExpressionAuthorizationManager("hasRole('ROLE_ADMIN')"))
-		.requestMatchers("/**").access(new WebExpressionAuthorizationManager("hasAnyRole('ROLE_USER','ROLE_ADMIN')")))
+        		.requestMatchers("/login**").permitAll()
+        		.requestMatchers("/css/**").permitAll()
+        		.requestMatchers("/403**").permitAll()
+        		.requestMatchers("/voeg-boek-toe").hasRole("ADMIN")
+        		.requestMatchers("/**").hasAnyRole("ADMIN", "USER")
+        	)
 		.formLogin(form -> form.defaultSuccessUrl("/bibliotheek", true))
 		.exceptionHandling().accessDeniedPage("/403");
 	return http.build();
