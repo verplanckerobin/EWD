@@ -11,12 +11,28 @@ public class PerformBoekRest {
     private WebClient webClient = WebClient.create();
 
     public PerformBoekRest() throws Exception {
-	System.out.println("\n----------------------- GET BOEK BY ISBN -----------------------");
+	System.out.println("\n--------------- GET BOEK BY ISBN: 9780261104013 ----------------");
 	System.out.println("----------------------------------------------------------------");
 	getBoekByIsbn("9780261104013");
-	System.out.println("\n-------------------- GET BOEKEN BY AUTEUR ----------------------");
+	System.out.println();
+	System.out.println("\n--------------- GET BOEKEN BY AUTEUR: Rowling ------------------");
 	System.out.println("----------------------------------------------------------------");
 	getBoekenByAuteur("Rowling");
+	try {
+	    System.out.println("\n--------------- GET BOEK BY ISBN: 0000000000000 ----------------");
+	    System.out.println("----------------------------------------------------------------");
+	    getBoekByIsbn("0000000000000");
+	} catch (Exception e) {
+	    System.out.println(e.getMessage());
+	}
+	System.out.println();
+	try {
+	    System.out.println("\n--------------- GET BOEKEN BY AUTEUR: Lingrow ------------------");
+	    System.out.println("----------------------------------------------------------------");
+	    getBoekenByAuteur("Lingrow");
+	} catch (Exception e) {
+	    System.out.println(e.getMessage());
+	}
     }
 
     private void getBook(String uri) {
