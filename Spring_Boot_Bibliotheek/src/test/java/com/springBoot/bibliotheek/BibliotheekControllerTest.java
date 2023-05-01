@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 @SpringJUnitConfig
-class SpringBootBibliotheekApplicationTests {
+class BibliotheekControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
