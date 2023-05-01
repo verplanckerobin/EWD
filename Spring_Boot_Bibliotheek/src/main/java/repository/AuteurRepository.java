@@ -10,4 +10,6 @@ public interface AuteurRepository extends JpaRepository<Auteur, Long> {
 
     Auteur findByAuteurNaamAndVoornaam(String naam, String voornaam);
 
+    Auteur findByAuteurNaam(String naam);
+
 }

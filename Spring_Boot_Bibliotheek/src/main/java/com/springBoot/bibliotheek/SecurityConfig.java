@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 @EnableWebSecurity
@@ -31,9 +32,10 @@ public class SecurityConfig {
 	http.csrf().and().authorizeHttpRequests(requests -> requests
         		.requestMatchers("/login**").permitAll()
         		.requestMatchers("/css/**").permitAll()
-        		.requestMatchers("/403**").permitAll()
         		.requestMatchers("/voeg-boek-toe").hasRole("ADMIN")
-        		.requestMatchers("/**").hasAnyRole("ADMIN", "USER")
+        		.requestMatchers("/rest/boek/**").permitAll()
+        		.requestMatchers("/403**").permitAll()
+        		.requestMatchers("/**").access(new WebExpressionAuthorizationManager("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"))
         	)
 		.formLogin(form -> form.defaultSuccessUrl("/bibliotheek", true))
 		.exceptionHandling().accessDeniedPage("/403");

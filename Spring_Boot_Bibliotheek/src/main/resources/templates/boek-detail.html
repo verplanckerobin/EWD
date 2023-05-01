@@ -77,7 +77,7 @@
 				</div>
 				<div class="col-10 gy-4">
 					<ul class="list-group">
-						<li class="list-group-item" th:text="${#numbers.formatCurrency(boek.aankoopprijs)}"></li>
+						<li class="list-group-item" th:text="${#numbers.formatCurrency(boek.aankoopprijs)} ?: 'Geen prijs'"></li>
 					</ul>
 				</div>
 			</div>

@@ -45,7 +45,7 @@ public class FavorietenController {
 	model.addAttribute("lijstLocaties", boekFetch.getLocaties());
 	model.addAttribute("isReedsFavoriet", actieveGebruiker.getFavorieten().contains(boekFetch));
 	model.addAttribute("maxAantal", heeftMaxAantalFavorieten);
-	model.addAttribute("userRole", actieveGebruiker.getAuthority().toString());
+	model.addAttribute("userRole", actieveGebruiker.getAuthority());
 
 	return "boek-detail";
     }

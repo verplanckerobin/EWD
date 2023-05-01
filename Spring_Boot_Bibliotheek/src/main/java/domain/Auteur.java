@@ -1,15 +1,11 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,12 +33,12 @@ public class Auteur implements Serializable {
     @NotEmpty(message = "{validation.auteurVoornaam.NotEmpty.message}")
     private String voornaam;
 
-    @ManyToMany(mappedBy = "auteurs", cascade = CascadeType.MERGE)
-    private List<Boek> boeken;
+//    @ManyToMany(mappedBy = "auteurs", cascade = CascadeType.MERGE)
+//    private List<Boek> boeken;
 
     public Auteur(String auteurNaam, String voornaam) {
 	this.auteurNaam = auteurNaam;
 	this.voornaam = voornaam;
-	boeken = new ArrayList<>();
+	// boeken = new ArrayList<>();
     }
 }

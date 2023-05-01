@@ -50,8 +50,9 @@ public class AdminController {
 
     @PostMapping("/voeg-boek-toe")
     public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result, Model model,
-	    Locale locale) {
+	    Locale locale, Authentication authentication) {
 	Boek bestaandBoek = boekRepo.findByIsbnNummer(boek.getIsbnNummer());
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 	if (result.hasErrors() || bestaandBoek != null) {
 	    if (bestaandBoek != null) {
@@ -62,6 +63,7 @@ public class AdminController {
 	    model.addAttribute("locatie", new Locatie());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
+	    model.addAttribute("userRole", auth.getAuthorities());
 	    return "voegBoekToe";
 	}
 
@@ -72,8 +74,9 @@ public class AdminController {
 
     @PostMapping("voeg-auteur-toe")
     public String voegAuteurToe(@Valid @ModelAttribute("auteur") Auteur auteur, BindingResult result, Model model,
-	    Locale locale) {
+	    Locale locale, Authentication authentication) {
 	Auteur bestaandeAuteur = auteurRepo.findByAuteurNaamAndVoornaam(auteur.getAuteurNaam(), auteur.getVoornaam());
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 	if (result.hasErrors() || bestaandeAuteur != null) {
 	    if (bestaandeAuteur != null) {
@@ -84,6 +87,7 @@ public class AdminController {
 	    model.addAttribute("locatie", new Locatie());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
+	    model.addAttribute("userRole", auth.getAuthorities());
 	    return "voegBoekToe";
 	}
 
@@ -93,9 +97,10 @@ public class AdminController {
 
     @PostMapping("voeg-locatie-toe")
     public String voegLocatieToe(@Valid @ModelAttribute("locatie") Locatie locatie, BindingResult result, Model model,
-	    Locale locale) {
+	    Locale locale, Authentication authentication) {
 	Locatie bestaandeLocatie = locatieRepo.findByPlaatscode1AndPlaatscode2AndPlaatsnaam(locatie.getPlaatscode1(),
 		locatie.getPlaatscode2(), locatie.getPlaatsnaam());
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 	int verschil = Math.abs(locatie.getPlaatscode1() - locatie.getPlaatscode2());
 
@@ -114,6 +119,7 @@ public class AdminController {
 	    model.addAttribute("auteur", new Auteur());
 	    model.addAttribute("auteurs", auteurRepo.findAll());
 	    model.addAttribute("locaties", locatieRepo.findAllNotInUse());
+	    model.addAttribute("userRole", auth.getAuthorities());
 	    return "voegBoekToe";
 	}
 

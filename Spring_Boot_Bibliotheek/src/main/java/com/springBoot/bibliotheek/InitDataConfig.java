@@ -1,5 +1,7 @@
 package com.springBoot.bibliotheek;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -53,29 +55,30 @@ public class InitDataConfig implements CommandLineRunner {
 	Locatie l5 = new Locatie(54, 104, "Brugge");
 	Locatie l6 = new Locatie(55, 105, "Brugge");
 	Locatie l7 = new Locatie(56, 106, "Brugge");
+	Locatie l8 = new Locatie(57, 107, "Brugge");
 
-	Boek boek1 = new Boek("Harry Potter and the Philosopher's Stone", "9780747532699", 29.99);
+	Boek boek1 = new Boek("Harry Potter and the Philosopher's Stone", "9780747532699", BigDecimal.valueOf(29.99));
 	boek1.voegAuteurToe(auteur1);
 	boek1.voegLocatieToe(l1);
 
-	Boek boek2 = new Boek("Harry Potter and the Chamber of Secrets", "9780822579496", 29.99);
+	Boek boek2 = new Boek("Harry Potter and the Chamber of Secrets", "9780822579496", BigDecimal.valueOf(29.99));
 	boek2.voegAuteurToe(auteur1);
 	boek2.voegLocatieToe(l2);
 
-	Boek boek3 = new Boek("The Fellowship of the Ring", "9780261104013", 32.99);
+	Boek boek3 = new Boek("The Fellowship of the Ring", "9780261104013", BigDecimal.valueOf(32.99));
 	boek3.voegAuteurToe(auteur2);
 	boek3.voegLocatieToe(l3);
 	boek3.voegLocatieToe(l4);
 
-	Boek boek4 = new Boek("The Two Towers", "9780345339713", 25.99);
+	Boek boek4 = new Boek("The Two Towers", "9780345339713", BigDecimal.valueOf(25.99));
 	boek4.voegAuteurToe(auteur2);
 	boek4.voegLocatieToe(l5);
 
-	Boek boek5 = new Boek("A Game of Thrones", "9780553808049", 27.99);
+	Boek boek5 = new Boek("A Game of Thrones", "9780553808049", BigDecimal.valueOf(27.99));
 	boek5.voegAuteurToe(auteur3);
 	boek5.voegLocatieToe(l6);
 
-	Boek boek6 = new Boek("A Storm of Swords", "9780593158951", 28.99);
+	Boek boek6 = new Boek("A Storm of Swords", "9780593158951", BigDecimal.valueOf(28.99));
 	boek6.voegAuteurToe(auteur3);
 	boek6.voegLocatieToe(l7);
 
@@ -90,6 +93,7 @@ public class InitDataConfig implements CommandLineRunner {
 	locatieRepo.save(l5);
 	locatieRepo.save(l6);
 	locatieRepo.save(l7);
+	locatieRepo.save(l8);
 
 	boekRepo.save(boek1);
 	boekRepo.save(boek2);

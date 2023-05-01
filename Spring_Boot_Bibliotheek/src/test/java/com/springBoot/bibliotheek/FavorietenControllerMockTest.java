@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ public class FavorietenControllerMockTest {
 	this.gebruiker = new Gebruiker("testUser", "123456", Authorities.ROLE_USER, true, 1);
 	Mockito.when(gebruikerRepoMock.getGebruikerByUsername("testUser")).thenReturn(gebruiker);
 
-	this.boek = new Boek("TestBoek", "9783161484100", 10.00);
+	this.boek = new Boek("TestBoek", "9783161484100", BigDecimal.valueOf(10.00));
 	Mockito.when(boekRepoMock.findById(1L)).thenReturn(Optional.of(boek));
 
 	this.auteur = new Auteur("AuteurVoornaam", "AuteurAchternaam");

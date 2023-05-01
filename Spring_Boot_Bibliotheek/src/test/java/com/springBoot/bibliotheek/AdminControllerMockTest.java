@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -67,7 +69,7 @@ public class AdminControllerMockTest {
 
 	auteur = new Auteur("TestNaam", "TestVoornaam");
 	locatie = new Locatie(50, 100, "Veldegem");
-	boek = new Boek("TestBoek", "9780596520687", 10.00);
+	boek = new Boek("TestBoek", "9780596520687", BigDecimal.valueOf(10.00));
 	boek.voegAuteurToe(auteur);
 	boek.voegLocatieToe(locatie);
     }
@@ -249,7 +251,7 @@ public class AdminControllerMockTest {
     }
 
     @Test
-    public void testVoegBoekToeISBNNull() throws Exception {
+    public void testVoegBoekToeIsbnNull() throws Exception {
 	boek.setIsbnNummer(null);
 	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
@@ -257,8 +259,24 @@ public class AdminControllerMockTest {
     }
 
     @Test
+    public void testVoegBoekToeIsbnTeKort() throws Exception {
+	boek.setIsbnNummer("123456");
+	BindingResult result = Mockito.mock(BindingResult.class);
+	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
+		.andExpect(model().attributeHasFieldErrors("boek", "isbnNummer")).andExpect(view().name("voegBoekToe"));
+    }
+
+    @Test
+    public void testVoegBoekToeIsbnOngeldig() throws Exception {
+	boek.setIsbnNummer("978-0-596-52068-6");
+	BindingResult result = Mockito.mock(BindingResult.class);
+	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
+		.andExpect(model().attributeHasFieldErrors("boek", "isbnNummer")).andExpect(view().name("voegBoekToe"));
+    }
+
+    @Test
     public void testVoegBoekToeAankoopprijsNul() throws Exception {
-	boek.setAankoopprijs(0.0);
+	boek.setAankoopprijs(BigDecimal.valueOf(0.0));
 	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "aankoopprijs"))
