@@ -22,7 +22,7 @@ public class BibliotheekController {
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	model.addAttribute("userRole", auth.getAuthorities());
 	model.addAttribute("username", auth.getName());
-	model.addAttribute("boekList", boekRepo.findAll());
+	model.addAttribute("boekList", boekRepo.findAllByOrderByNaamAsc());
 	return "bibliotheekOverzicht";
     }
 }

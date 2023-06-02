@@ -16,4 +16,6 @@ public interface BoekRepository extends CrudRepository<Boek, Long> {
     List<Boek> findAllByOrderByAantalSterrenDescNaamAsc();
 
     List<Boek> findByAuteursContains(Auteur auteur);
+
+    List<Boek> findAllByOrderByNaamAsc();
 }

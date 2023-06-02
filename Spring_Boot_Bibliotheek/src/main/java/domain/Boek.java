@@ -22,8 +22,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -32,6 +30,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import validator.PrijsValidator;
 
 @Entity
 @Getter
@@ -52,13 +51,12 @@ public class Boek implements Serializable {
     @NotEmpty(message = "{validation.boekNaam.NotEmpty.message}")
     private String naam;
 
+    @ISBN(message = "{validation.boekISBN.NietGeldig.message}")
     @NotNull(message = "{validation.boekISBN.NotNull.message}")
-    @ISBN
     private String isbnNummer;
 
     @NumberFormat(style = Style.CURRENCY)
-    @DecimalMin(value = "0.0", inclusive = false, message = "{validation.boekAankoopprijs.Range.message}")
-    @DecimalMax(value = "100.00", inclusive = false, message = "{validation.boekAankoopprijs.Range.message}")
+    @PrijsValidator
     private BigDecimal aankoopprijs;
 
     private int aantalSterren;
@@ -79,11 +77,17 @@ public class Boek implements Serializable {
 
     public Boek(String naam, String isbnNummer, BigDecimal aankoopprijs) {
 	this.naam = naam;
-	this.isbnNummer = isbnNummer;
+	setIsbnNummer(isbnNummer);
 	this.aankoopprijs = aankoopprijs;
 	this.aantalSterren = 0;
 	auteurs = new ArrayList<>();
 	locaties = new ArrayList<>();
+    }
+
+    public void setIsbnNummer(String isbnNummer) {
+	if (isbnNummer != null) {
+	    this.isbnNummer = isbnNummer.trim().replace("-", "").replace(" ", "");
+	}
     }
 
     public void voegAuteurToe(Auteur auteur) {

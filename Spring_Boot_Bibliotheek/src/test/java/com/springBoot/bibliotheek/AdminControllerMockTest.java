@@ -51,6 +51,7 @@ public class AdminControllerMockTest {
     private Auteur auteur;
     private Locatie locatie;
     private Boek boek;
+    private BindingResult result;
 
     @BeforeEach
     public void before() {
@@ -72,6 +73,8 @@ public class AdminControllerMockTest {
 	boek = new Boek("TestBoek", "9780596520687", BigDecimal.valueOf(10.00));
 	boek.voegAuteurToe(auteur);
 	boek.voegLocatieToe(locatie);
+
+	result = Mockito.mock(BindingResult.class);
     }
 
     // Auteur
@@ -86,7 +89,6 @@ public class AdminControllerMockTest {
     public void testVoegAuteurToeNaamNull() throws Exception {
 	//@formatter:off
 	auteur.setAuteurNaam(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-auteur-toe").flashAttr("auteur", auteur).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("auteur", "auteurNaam"))
 		.andExpect(view().name("voegBoekToe"));
@@ -97,7 +99,6 @@ public class AdminControllerMockTest {
     public void testVoegAuteurToeVoornaamNull() throws Exception {
 	//@formatter:off
 	auteur.setVoornaam(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-auteur-toe").flashAttr("auteur", auteur).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("auteur", "voornaam"))
 		.andExpect(view().name("voegBoekToe"));
@@ -109,7 +110,6 @@ public class AdminControllerMockTest {
 	Auteur bestaandeAuteur = new Auteur("TestNaam", "TestVoornaam");
 	Mockito.when(auteurRepoMock.findByAuteurNaamAndVoornaam(bestaandeAuteur.getAuteurNaam(),
 		bestaandeAuteur.getVoornaam())).thenReturn(bestaandeAuteur);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	MvcResult mvcResult = mockMvc.perform(
 		post("/voeg-auteur-toe").flashAttr("auteur", bestaandeAuteur).flashAttr("bindingResult", result))
 		.andExpect(status().isOk()).andExpect(view().name("voegBoekToe")).andReturn();
@@ -130,7 +130,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegLocatieToePlaatscode1TeKlein() throws Exception {
 	locatie.setPlaatscode1(0);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-locatie-toe").flashAttr("locatie", locatie).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("locatie", "plaatscode1"))
 		.andExpect(view().name("voegBoekToe"));
@@ -139,7 +138,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegLocatieToePlaatscode2TeKlein() throws Exception {
 	locatie.setPlaatscode2(0);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-locatie-toe").flashAttr("locatie", locatie).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("locatie", "plaatscode2"))
 		.andExpect(view().name("voegBoekToe"));
@@ -148,7 +146,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegLocatieToePlaatsNaamNull() throws Exception {
 	locatie.setPlaatsnaam(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-locatie-toe").flashAttr("locatie", locatie).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("locatie", "plaatsnaam"))
 		.andExpect(view().name("voegBoekToe"));
@@ -157,7 +154,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegLocatieToePlaatsNaamCijfers() throws Exception {
 	locatie.setPlaatsnaam("123456abcdef");
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-locatie-toe").flashAttr("locatie", locatie).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("locatie", "plaatsnaam"))
 		.andExpect(view().name("voegBoekToe"));
@@ -167,7 +163,6 @@ public class AdminControllerMockTest {
     public void testVoegLocatieToeVerschilTeKlein() throws Exception {
 	locatie.setPlaatscode1(50);
 	locatie.setPlaatscode2(60);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	MvcResult mvcResult = mockMvc
 		.perform(post("/voeg-locatie-toe").flashAttr("locatie", locatie).flashAttr("bindingResult", result))
 		.andExpect(status().isOk()).andExpect(view().name("voegBoekToe")).andReturn();
@@ -183,7 +178,6 @@ public class AdminControllerMockTest {
 	Mockito.when(locatieRepoMock.findByPlaatscode1AndPlaatscode2AndPlaatsnaam(bestaandeLocatie.getPlaatscode1(),
 		bestaandeLocatie.getPlaatscode2(), bestaandeLocatie.getPlaatsnaam())).thenReturn(bestaandeLocatie);
 
-	BindingResult result = Mockito.mock(BindingResult.class);
 	MvcResult mvcResult = mockMvc.perform(
 		post("/voeg-locatie-toe").flashAttr("locatie", bestaandeLocatie).flashAttr("bindingResult", result))
 		.andExpect(status().isOk()).andExpect(view().name("voegBoekToe")).andReturn();
@@ -203,7 +197,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegBoekToeGeenAuteurs() throws Exception {
 	boek.setAuteurs(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "auteurs")).andExpect(view().name("voegBoekToe"));
     }
@@ -216,7 +209,6 @@ public class AdminControllerMockTest {
 	boek.voegAuteurToe(auteur2);
 	boek.voegAuteurToe(auteur3);
 	boek.voegAuteurToe(auteur4);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "auteurs")).andExpect(view().name("voegBoekToe"));
     }
@@ -224,7 +216,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegBoekToeGeenLocaties() throws Exception {
 	boek.setLocaties(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "locaties")).andExpect(view().name("voegBoekToe"));
     }
@@ -237,7 +228,6 @@ public class AdminControllerMockTest {
 	boek.voegLocatieToe(locatie2);
 	boek.voegLocatieToe(locatie3);
 	boek.voegLocatieToe(locatie4);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "locaties")).andExpect(view().name("voegBoekToe"));
     }
@@ -245,15 +235,14 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegBoekToeNaamNull() throws Exception {
 	boek.setNaam(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "naam")).andExpect(view().name("voegBoekToe"));
     }
 
     @Test
     public void testVoegBoekToeIsbnNull() throws Exception {
+	Boek boek = new Boek();
 	boek.setIsbnNummer(null);
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "isbnNummer")).andExpect(view().name("voegBoekToe"));
     }
@@ -261,7 +250,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegBoekToeIsbnTeKort() throws Exception {
 	boek.setIsbnNummer("123456");
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "isbnNummer")).andExpect(view().name("voegBoekToe"));
     }
@@ -269,7 +257,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegBoekToeIsbnOngeldig() throws Exception {
 	boek.setIsbnNummer("978-0-596-52068-6");
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "isbnNummer")).andExpect(view().name("voegBoekToe"));
     }
@@ -277,7 +264,6 @@ public class AdminControllerMockTest {
     @Test
     public void testVoegBoekToeAankoopprijsNul() throws Exception {
 	boek.setAankoopprijs(BigDecimal.valueOf(0.0));
-	BindingResult result = Mockito.mock(BindingResult.class);
 	mockMvc.perform(post("/voeg-boek-toe").flashAttr("boek", boek).flashAttr("bindingResult", result))
 		.andExpect(model().attributeHasFieldErrors("boek", "aankoopprijs"))
 		.andExpect(view().name("voegBoekToe"));
