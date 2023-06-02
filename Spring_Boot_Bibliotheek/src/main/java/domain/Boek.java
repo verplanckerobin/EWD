@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.ISBN;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -30,6 +29,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import validator.ISBNValidator;
 import validator.PrijsValidator;
 
 @Entity
@@ -51,8 +51,7 @@ public class Boek implements Serializable {
     @NotEmpty(message = "{validation.boekNaam.NotEmpty.message}")
     private String naam;
 
-    @ISBN(message = "{validation.boekISBN.NietGeldig.message}")
-    @NotNull(message = "{validation.boekISBN.NotNull.message}")
+    @ISBNValidator
     private String isbnNummer;
 
     @NumberFormat(style = Style.CURRENCY)
