@@ -24,6 +24,7 @@ public class PrijsConstraintValidator implements ConstraintValidator<PrijsValida
 	if (value == null) {
 	    return true;
 	}
+	// Check op groter dan LOWER en kleiner dan UPPER: moet 2x TRUE zijn
 	return value.compareTo(LOWER_BOUND) > 0 && value.compareTo(UPPER_BOUND) < 0;
     }
 }

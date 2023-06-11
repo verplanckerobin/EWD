@@ -38,6 +38,7 @@ import validator.PrijsValidator;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = { "id", "naam", "aankoopprijs", "aantalSterren", "auteurs", "locaties" })
+// Specificeert dat boek_id zal worden gebruikt als de identifier voor het object in serialisatie- en deserialisatieprocessen: nodig voor rest service
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "boek_id")
 public class Boek implements Serializable {
 

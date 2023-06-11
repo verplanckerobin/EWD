@@ -12,6 +12,10 @@ import perform.PerformBoekRest;
 import service.BoekService;
 import service.BoekServiceImpl;
 
+// Samengevat dient deze klasse als het startpunt voor de Spring Boot applicatie. 
+// Het configureert de applicatie, stelt JPA repositories en entity scanning in, 
+// definieert view controllers en initialiseert een bean voor de BoekService interface.
+
 @SpringBootApplication
 @EnableJpaRepositories("repository")
 @EntityScan("domain")

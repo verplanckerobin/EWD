@@ -19,6 +19,10 @@ public class SecurityConfig {
     @Autowired
     DataSource dataSource;
 
+    // Deze methode configureert de authenticatiemanager. Het gebruikt
+    // JDBC-gebaseerde authenticatie, stelt de datasource in
+    // specificeert een wachtwoordencoder (BCryptPasswordEncoder) en definieert de
+    // SQL-query's om gebruikersgegevens en autoriteiten op te halen uit de database
     @Autowired
     public void configureGobal(AuthenticationManagerBuilder auth) throws Exception {
 	auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
@@ -26,6 +30,8 @@ public class SecurityConfig {
 		.authoritiesByUsernameQuery("select username,authority from `Gebruiker` where username = ?");
     }
 
+    // Deze methode configureert de beveiligingsfilters voor verschillende
+    // HTTP-verzoeken
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	// @formatter:off

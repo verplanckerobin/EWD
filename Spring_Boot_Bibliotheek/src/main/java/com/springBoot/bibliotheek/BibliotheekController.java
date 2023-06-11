@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import repository.BoekRepository;
 
+// Controller voor overzicht boeken in bibliotheek (startpagina)
 @Controller
 @RequestMapping("/bibliotheek")
 public class BibliotheekController {

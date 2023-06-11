@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import repository.BoekRepository;
 
+// Controller voor populairste boeken
 @Controller
 @RequestMapping("/populairste-boeken")
 public class RankingController {

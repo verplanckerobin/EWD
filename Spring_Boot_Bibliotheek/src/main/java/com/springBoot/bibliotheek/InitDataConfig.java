@@ -16,6 +16,7 @@ import repository.BoekRepository;
 import repository.GebruikerRepository;
 import repository.LocatieRepository;
 
+// Seeden van data
 @Component
 public class InitDataConfig implements CommandLineRunner {
 

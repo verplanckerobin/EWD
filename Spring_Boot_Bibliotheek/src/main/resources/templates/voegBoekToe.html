@@ -7,6 +7,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<!-- Titel, huidige rol info, logout button -->
  	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<div class="row">
@@ -26,6 +27,8 @@
 			<hr style="height:5px;color:#002d72;opacity: 100" />
 	  	</div>
 	</div>
+	<!-- Subform auteurs toevoegen -->
+	<!-- Titel -->
 	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<div class="row">
@@ -35,6 +38,7 @@
 			</div>
      	</div>
    	</div>
+   	<!-- Naam, voornaam veld, button voeg toe met errorveld -->
    	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<form th:action="@{/voeg-auteur-toe}" th:object="${auteur}" method="post">
@@ -62,6 +66,8 @@
 		    </form>
      	</div>
    	</div>
+   	<!-- Subform locatie toevoegen -->
+   	<!-- Titel -->
 	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<div class="row">
@@ -71,6 +77,7 @@
 			</div>
      	</div>
    	</div>
+   	<!-- Veld plaatscode1, plaatscode2, plaatsnaam + button toevoegen met errorveld -->
    	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<form th:action="@{/voeg-locatie-toe}" th:object="${locatie}" method="post">
@@ -108,6 +115,8 @@
 		    </form>
    		</div>
    	</div>
+   	<!-- Subform boek toevoegen -->
+   	<!-- Titel -->
 	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<div class="row">
@@ -117,6 +126,7 @@
 			</div>
      	</div>
    	</div>
+   	<!-- Velden naam, isbn, prijs, list auteurs, list locaties, button voeg toe + errorveld -->
 	<div class="mask d-flex align-items-center">
 		<div class="container px-4">
 			<form th:action="@{/voeg-boek-toe}" th:object="${boek}" method="POST">
@@ -176,6 +186,7 @@
 		   	</form>
 		</div>
 	</div>
+	<!-- Button terug -->
    	<div class="mask d-flex align-items-center">
 		<div class="container">
 			<div class="row">

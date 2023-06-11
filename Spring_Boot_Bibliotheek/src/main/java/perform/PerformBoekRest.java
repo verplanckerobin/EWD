@@ -48,6 +48,7 @@ public class PerformBoekRest {
 	StringBuilder listLocaties = new StringBuilder();
 	boek.getAuteurs().forEach(auteur -> {
 	    listAuteurs.append(auteur.getAuteurNaam() + " " + auteur.getVoornaam());
+	    // Zolang het niet de laatste is, voeg een "|" toe
 	    if (boek.getAuteurs().indexOf(auteur) != boek.getAuteurs().size() - 1) {
 		listLocaties.append(" | ");
 	    }
@@ -55,6 +56,7 @@ public class PerformBoekRest {
 	boek.getLocaties().forEach(locatie -> {
 	    listLocaties.append(
 		    locatie.getPlaatscode1() + " - " + locatie.getPlaatscode2() + " - " + locatie.getPlaatsnaam());
+	    // Zolang het niet de laatste is, voeg een "|" toe
 	    if (boek.getLocaties().indexOf(locatie) != boek.getLocaties().size() - 1) {
 		listLocaties.append(" | ");
 	    }
@@ -64,6 +66,11 @@ public class PerformBoekRest {
 		boek.getNaam(), boek.getIsbnNummer(), boek.getAankoopprijs(), listAuteurs, listLocaties);
     }
 
+    // Deze methode gebruikt een WebClient om een HTTP GET verzoek te doen naar de
+    // gespecificeerde URI.
+    // Het haalt een Flux van Boek-objecten op, past een flatMap-bewerking toe om de
+    // gegevens van elk Boek-object af te drukken
+    // en blokkeert vervolgens totdat alle elementen in de Flux zijn gebruikt
     private void getBoeken(String uri) {
 	webClient.get().uri(uri).retrieve().bodyToFlux(Boek.class).flatMap(boek -> {
 	    printBoekenData(boek);

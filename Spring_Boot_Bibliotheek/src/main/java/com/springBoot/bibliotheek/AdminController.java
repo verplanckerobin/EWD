@@ -21,9 +21,13 @@ import repository.AuteurRepository;
 import repository.BoekRepository;
 import repository.LocatieRepository;
 
+//Controllers behandelen inkomende verzoeken, verwerken ze en sturen het juiste antwoord terug
+// Controller voor het toevoegen van een boek (enkel als admin)
 @Controller
 public class AdminController {
 
+    // Automatische dependency injection. BoekRepository klasse te injecteren in het
+    // boekRepo attribuut.
     @Autowired
     private BoekRepository boekRepo;
 
@@ -38,7 +42,10 @@ public class AdminController {
 
     @GetMapping("/voeg-boek-toe")
     public String toonVoegBoekToeForm(Model model, Authentication authentication) {
+	// Haalt het Authentication-object op dat de huidige geauthenticeerde gebruiker
+	// vertegenwoordigt uit de SecurityContextHolder.
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	// Voeg attributen aan model toe
 	model.addAttribute("boek", new Boek());
 	model.addAttribute("auteur", new Auteur());
 	model.addAttribute("locatie", new Locatie());
@@ -48,6 +55,15 @@ public class AdminController {
 	return "voegBoekToe";
     }
 
+    // boek van type Boek (geannoteerd met @ModelAttribute om formuliergegevens aan
+    // het boekobject te binden)
+    // resultaat van het type BindingResult (gebruikt om validatiefouten op te
+    // slaan)
+    // model van het type Model (gebruikt om attributen aan het model toe te voegen)
+    // locale van het type Locale (vertegenwoordigt de locale-informatie voor
+    // internationalisatie)
+    // authenticatie van het type Authentication (vertegenwoordigt de informatie van
+    // de huidige geauthenticeerde gebruiker).
     @PostMapping("/voeg-boek-toe")
     public String voegBoekToe(@Valid @ModelAttribute("boek") Boek boek, BindingResult result, Model model,
 	    Locale locale, Authentication authentication) {

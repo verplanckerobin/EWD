@@ -33,6 +33,8 @@ import repository.LocatieRepository;
 
 public class AdminControllerMockTest {
 
+    // Alle mock testen met betrekking tot auteur, locatie en boek objecten
+
     @Mock
     private BoekRepository boekRepoMock;
 
@@ -77,7 +79,7 @@ public class AdminControllerMockTest {
 	result = Mockito.mock(BindingResult.class);
     }
 
-    // Auteur
+    // Testen Auteur
 
     @Test
     public void testVoegAuteurToeCorrect() throws Exception {
@@ -119,7 +121,7 @@ public class AdminControllerMockTest {
 	assertThat(modelMap).containsKey("errorAuteurBestaat");
     }
 
-    // Locatie
+    // Testen Locatie
 
     @Test
     public void testVoegLocatieToeCorrect() throws Exception {
@@ -187,7 +189,7 @@ public class AdminControllerMockTest {
 	assertThat(modelMap).containsKey("errorLocatieBestaat");
     }
 
-    // Boek
+    // Testen Boek
 
     @Test
     public void testVoegBoekToeCorrect() throws Exception {

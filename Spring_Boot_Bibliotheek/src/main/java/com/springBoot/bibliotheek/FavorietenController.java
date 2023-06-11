@@ -16,6 +16,7 @@ import domain.Gebruiker;
 import repository.BoekRepository;
 import repository.GebruikerRepository;
 
+// Controller voor boekdetail en beheren van favorieten
 @Controller
 @RequestMapping("/boek")
 public class FavorietenController {
